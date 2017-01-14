@@ -1,0 +1,501 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="InputAttachConsole.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="InputAttachConsole.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="InputAttachConsole.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 171</value>
+  </data>
+  <data name="InputAttachConsole.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 17</value>
+  </data>
+  <data name="InputAttachConsole.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="InputAttachConsole.Text" xml:space="preserve">
+    <value>Attach Console</value>
+  </data>
+  <data name="InputAttachConsole.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;InputAttachConsole.Name" xml:space="preserve">
+    <value>InputAttachConsole</value>
+  </data>
+  <data name="&gt;&gt;InputAttachConsole.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputAttachConsole.Parent" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;InputAttachConsole.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="InputResoSelect.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="InputResoSelect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>77, 30</value>
+  </data>
+  <data name="InputResoSelect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 21</value>
+  </data>
+  <data name="InputResoSelect.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;InputResoSelect.Name" xml:space="preserve">
+    <value>InputResoSelect</value>
+  </data>
+  <data name="&gt;&gt;InputResoSelect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputResoSelect.Parent" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;InputResoSelect.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="InputInstanceCount.Location" type="System.Drawing.Point, System.Drawing">
+    <value>82, 3</value>
+  </data>
+  <data name="InputInstanceCount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>31, 20</value>
+  </data>
+  <data name="InputInstanceCount.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;InputInstanceCount.Name" xml:space="preserve">
+    <value>InputInstanceCount</value>
+  </data>
+  <data name="&gt;&gt;InputInstanceCount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputInstanceCount.Parent" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;InputInstanceCount.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="LabelResolution.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="LabelResolution.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="LabelResolution.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 30</value>
+  </data>
+  <data name="LabelResolution.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 13</value>
+  </data>
+  <data name="LabelResolution.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="LabelResolution.Text" xml:space="preserve">
+    <value>Resolution :</value>
+  </data>
+  <data name="&gt;&gt;LabelResolution.Name" xml:space="preserve">
+    <value>LabelResolution</value>
+  </data>
+  <data name="&gt;&gt;LabelResolution.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelResolution.Parent" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;LabelResolution.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="LabelInstances.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LabelInstances.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 5</value>
+  </data>
+  <data name="LabelInstances.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 13</value>
+  </data>
+  <data name="LabelInstances.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="LabelInstances.Text" xml:space="preserve">
+    <value># of Players :</value>
+  </data>
+  <data name="&gt;&gt;LabelInstances.Name" xml:space="preserve">
+    <value>LabelInstances</value>
+  </data>
+  <data name="&gt;&gt;LabelInstances.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelInstances.Parent" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;LabelInstances.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="TabGeneralSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabGeneralSettings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>274, 194</value>
+  </data>
+  <data name="TabGeneralSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TabGeneralSettings.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="&gt;&gt;TabGeneralSettings.Name" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;TabGeneralSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabGeneralSettings.Parent" xml:space="preserve">
+    <value>ConfigTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabGeneralSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="LabelSelectController.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="LabelSelectController.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 11</value>
+  </data>
+  <data name="LabelSelectController.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 13</value>
+  </data>
+  <data name="LabelSelectController.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="LabelSelectController.Text" xml:space="preserve">
+    <value>Select Controller :</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectController.Name" xml:space="preserve">
+    <value>LabelSelectController</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectController.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectController.Parent" xml:space="preserve">
+    <value>ControllerOptionsPanel</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectController.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="InputControllerSelect.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 27</value>
+  </data>
+  <data name="InputControllerSelect.Size" type="System.Drawing.Size, System.Drawing">
+    <value>121, 21</value>
+  </data>
+  <data name="InputControllerSelect.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;InputControllerSelect.Name" xml:space="preserve">
+    <value>InputControllerSelect</value>
+  </data>
+  <data name="&gt;&gt;InputControllerSelect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputControllerSelect.Parent" xml:space="preserve">
+    <value>ControllerOptionsPanel</value>
+  </data>
+  <data name="&gt;&gt;InputControllerSelect.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ControllerOptionsPanel.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ControllerOptionsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>106, 4</value>
+  </data>
+  <data name="ControllerOptionsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 158</value>
+  </data>
+  <data name="ControllerOptionsPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;ControllerOptionsPanel.Name" xml:space="preserve">
+    <value>ControllerOptionsPanel</value>
+  </data>
+  <data name="&gt;&gt;ControllerOptionsPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ControllerOptionsPanel.Parent" xml:space="preserve">
+    <value>TabController</value>
+  </data>
+  <data name="&gt;&gt;ControllerOptionsPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ControllerBTResetAll.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ControllerBTResetAll.Location" type="System.Drawing.Point, System.Drawing">
+    <value>146, 168</value>
+  </data>
+  <data name="ControllerBTResetAll.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="ControllerBTResetAll.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="ControllerBTResetAll.Text" xml:space="preserve">
+    <value>Reset All</value>
+  </data>
+  <data name="&gt;&gt;ControllerBTResetAll.Name" xml:space="preserve">
+    <value>ControllerBTResetAll</value>
+  </data>
+  <data name="&gt;&gt;ControllerBTResetAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ControllerBTResetAll.Parent" xml:space="preserve">
+    <value>TabController</value>
+  </data>
+  <data name="&gt;&gt;ControllerBTResetAll.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ControllerPlayerList.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ControllerPlayerList.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="ControllerPlayerList.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 194</value>
+  </data>
+  <data name="ControllerPlayerList.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ControllerPlayerList.Name" xml:space="preserve">
+    <value>ControllerPlayerList</value>
+  </data>
+  <data name="&gt;&gt;ControllerPlayerList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ControllerPlayerList.Parent" xml:space="preserve">
+    <value>TabController</value>
+  </data>
+  <data name="&gt;&gt;ControllerPlayerList.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="TabController.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabController.Size" type="System.Drawing.Size, System.Drawing">
+    <value>274, 194</value>
+  </data>
+  <data name="TabController.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="TabController.Text" xml:space="preserve">
+    <value>Controllers</value>
+  </data>
+  <data name="&gt;&gt;TabController.Name" xml:space="preserve">
+    <value>TabController</value>
+  </data>
+  <data name="&gt;&gt;TabController.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabController.Parent" xml:space="preserve">
+    <value>ConfigTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabController.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ConfigTabControl.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ConfigTabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, -1</value>
+  </data>
+  <data name="ConfigTabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>282, 220</value>
+  </data>
+  <data name="ConfigTabControl.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ConfigTabControl.Name" xml:space="preserve">
+    <value>ConfigTabControl</value>
+  </data>
+  <data name="&gt;&gt;ConfigTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConfigTabControl.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ConfigTabControl.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ButtonLaunch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>100, 226</value>
+  </data>
+  <data name="ButtonLaunch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="ButtonLaunch.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="ButtonLaunch.Text" xml:space="preserve">
+    <value>Launch</value>
+  </data>
+  <data name="&gt;&gt;ButtonLaunch.Name" xml:space="preserve">
+    <value>ButtonLaunch</value>
+  </data>
+  <data name="&gt;&gt;ButtonLaunch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ButtonLaunch.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ButtonLaunch.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>284, 261</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>FlatOut2 Splitscreen Launcher</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>Setup</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

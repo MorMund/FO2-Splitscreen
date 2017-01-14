@@ -1,0 +1,18 @@
+### Project Cache
+*.sdf
+*.opendb
+*.suo
+*.db
+*.Cache
+### Binaries
+*.exe
+*.exe.*
+*.pdb
+*/Debug
+*/Release
+/ipch
+*/obj
+*/bin
+### Game directory link
+*/GameDir
+/GameDir

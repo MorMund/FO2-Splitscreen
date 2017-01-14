@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\InterfaceHooks">
+      <UniqueIdentifier>{b608554c-b341-41ae-adc2-19faab1877f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\InterfaceHooks">
+      <UniqueIdentifier>{97d03ab0-0c28-4dc8-aaed-26fe85e57998}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Detours">
+      <UniqueIdentifier>{6c6b75f7-83d3-49e7-bb73-ede6ad5a64b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Detours">
+      <UniqueIdentifier>{dd381751-7251-4661-8640-033bda5fe8de}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FlatOut2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualHost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VirtualIP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CDirect3D9Hook.h">
+      <Filter>Header Files\InterfaceHooks</Filter>
+    </ClInclude>
+    <ClInclude Include="CDirect3D9DevHook.h">
+      <Filter>Header Files\InterfaceHooks</Filter>
+    </ClInclude>
+    <ClInclude Include="CDIDevice8Hook.h">
+      <Filter>Header Files\InterfaceHooks</Filter>
+    </ClInclude>
+    <ClInclude Include="CDirectInput8Hook.h">
+      <Filter>Header Files\InterfaceHooks</Filter>
+    </ClInclude>
+    <ClInclude Include="InstanceSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScriptRunner.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DetourCallDefs.h">
+      <Filter>Header Files\Detours</Filter>
+    </ClInclude>
+    <ClInclude Include="WinSockDetours.h">
+      <Filter>Header Files\Detours</Filter>
+    </ClInclude>
+    <ClInclude Include="DXDetours.h">
+      <Filter>Header Files\Detours</Filter>
+    </ClInclude>
+    <ClInclude Include="DIDetours.h">
+      <Filter>Header Files\Detours</Filter>
+    </ClInclude>
+    <ClInclude Include="User32Detours.h">
+      <Filter>Header Files\Detours</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugOutput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDetours.h">
+      <Filter>Header Files\Detours</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlatOut2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VirtualClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VirtualHost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VirtualIP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CDirect3D9DevHook.cpp">
+      <Filter>Source Files\InterfaceHooks</Filter>
+    </ClCompile>
+    <ClCompile Include="CDirect3D9Hook.cpp">
+      <Filter>Source Files\InterfaceHooks</Filter>
+    </ClCompile>
+    <ClCompile Include="CDIDevice8Hook.cpp">
+      <Filter>Source Files\InterfaceHooks</Filter>
+    </ClCompile>
+    <ClCompile Include="CDirectInput8Hook.cpp">
+      <Filter>Source Files\InterfaceHooks</Filter>
+    </ClCompile>
+    <ClCompile Include="InstanceSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScriptRunner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WinSockDetours.cpp">
+      <Filter>Source Files\Detours</Filter>
+    </ClCompile>
+    <ClCompile Include="DXDetours.cpp">
+      <Filter>Source Files\Detours</Filter>
+    </ClCompile>
+    <ClCompile Include="DIDetours.cpp">
+      <Filter>Source Files\Detours</Filter>
+    </ClCompile>
+    <ClCompile Include="User32Detours.cpp">
+      <Filter>Source Files\Detours</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugOutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDetours.cpp">
+      <Filter>Source Files\Detours</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
