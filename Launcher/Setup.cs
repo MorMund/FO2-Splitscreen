@@ -4,13 +4,14 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
+    using System.Threading;
     using System.Threading.Tasks;
     using System.Windows.Forms;
     using static Settings;
 
     public partial class Setup : Form
     {
-        private const string settingsFile = "Splitscreen_Settings.xml";
+        public const string settingsFile = "Splitscreen_Settings.xml";
 
         private Task gameLaunch = null;
         private List<RECT> resolutions = null;
@@ -25,8 +26,22 @@
 
         private void Setup_Load(object sender, EventArgs e)
         {
-            Task loadSettings = new Task(LoadSettings);
-            loadSettings.Start();
+            var load = Task.Factory.StartNew(LoadSettings);
+            load.ContinueWith(t =>
+            {
+                if (t.Exception != null)
+                {
+                    throw t.Exception.InnerException;
+                }
+                UpdateSettings(this.settings);
+                EnterConfigTab();
+                ConfigTabControl.Enabled = true;
+#if DEBUG
+                                InputAttachConsole.Enabled = true;
+                                InputAttachConsole.Visible = true;
+#endif
+            },
+            CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private void LoadSettings()
@@ -40,7 +55,7 @@
 
             try
             {
-                using (Stream s = File.OpenRead(settingsFile))
+                using (var s = File.OpenRead(settingsFile))
                 {
                     settings = Settings.LoadSettings(s);
                 }
@@ -54,21 +69,11 @@
             {
                 this.settings = new Settings(1);
             }
-
-            InvokeOnFormThread(() =>
-            {
-                UpdateSettings(this.settings);
-                EnterConfigTab();
-                ConfigTabControl.Enabled = true;
-#if DEBUG
-                InputAttachConsole.Enabled = true;
-                InputAttachConsole.Visible = true;
-#endif
-            });
         }
 
         private void ValidateInstallation()
         {
+            bool isValid = true;
             if (!File.Exists("FlatOut2.exe"))
             {
                 MessageBox.Show(
@@ -76,7 +81,7 @@
                     "Installation Error!",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-                Application.Exit();
+                isValid = false;
             }
 
             if (!File.Exists("FlatOut2.dll"))
@@ -86,6 +91,21 @@
                    "Installation Error!",
                    MessageBoxButtons.OK,
                    MessageBoxIcon.Error);
+                isValid = false;
+            }
+
+            if (!Directory.Exists("savegame") || !File.Exists("Savegame/options.cfg"))
+            {
+                MessageBox.Show(
+                   "Game settings not found! Run FlatOut 2 normally once before using this launcher.",
+                   "Installation Error!",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.Error);
+                isValid = false;
+            }
+
+            if (!isValid)
+            {
                 Application.Exit();
             }
         }
@@ -106,27 +126,24 @@
             this.settings.SetDefaultWindowPos(Math.Max(selected.Width, 640), Math.Max(selected.Height, 480));
 
             gameLaunch = FlatOut2.CreateSplitScreenSession(this.settings);
-            gameLaunch.ContinueWith((Task t) =>
+            gameLaunch.ContinueWith(t =>
             {
                 using (Stream s = File.Open(settingsFile, FileMode.Create))
                 {
                     this.settings.SaveSettings(s);
                 }
                 Application.Exit();
-            });
-            gameLaunch.Start();
-        }
+            },
+            TaskContinuationOptions.OnlyOnRanToCompletion);
+            gameLaunch.ContinueWith(t =>
+            {
+                throw t.Exception.InnerException;
+            },
+            CancellationToken.None,
+            TaskContinuationOptions.OnlyOnFaulted,
+            TaskScheduler.FromCurrentSynchronizationContext());
 
-        private void InvokeOnFormThread(Action behavior)
-        {
-            if (IsHandleCreated && InvokeRequired)
-            {
-                Invoke(behavior);
-            }
-            else
-            {
-                behavior();
-            }
+
         }
 
         private void InputInstanceCount_ValueChanged(object sender, EventArgs e)
@@ -159,8 +176,7 @@
             ControllerOptionsPanel.Enabled = false;
             ControllerBTResetAll.Enabled = false;
             Task<List<GamePad>> getControllers = FlatOut2.GetGamePads();
-            getControllers.ContinueWith(UpdateControllerList);
-            getControllers.Start();
+            getControllers.ContinueWith(UpdateControllerList, CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
             ControllerPlayerList.Clear();
             for (int player = 0; player < settings.InstanceCount; player++)
             {
@@ -171,55 +187,59 @@
         private void EnterConfigTab()
         {
             Task<List<RECT>> getResolutions = FlatOut2.GetResolutions();
-            getResolutions.ContinueWith(UpdateResolutionList);
-            getResolutions.Start();
+            getResolutions.ContinueWith(UpdateResolutionList, CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private void UpdateResolutionList(Task<List<RECT>> getResolutions)
         {
-            resolutions = getResolutions.Result;
-            InvokeOnFormThread(() =>
+            if (getResolutions.Exception != null)
             {
-                InputResoSelect.Items.Clear();
-                foreach (var reso in resolutions)
-                {
-                    InputResoSelect.Items.Add($"{reso.Width}  x {reso.Height}");
-                }
+                throw getResolutions.Exception.InnerException;
+            }
 
-                if (InputResoSelect.SelectedIndex == -1 && resolutions.Count > 0)
+            resolutions = getResolutions.Result;
+            InputResoSelect.Items.Clear();
+            foreach (var reso in resolutions)
+            {
+                InputResoSelect.Items.Add($"{reso.Width}  x {reso.Height}");
+            }
+
+            if (InputResoSelect.SelectedIndex == -1 && resolutions.Count > 0)
+            {
+                InputResoSelect.SelectedIndex = 0;
+                if (!settings.GetWindowPos().Equals(RECT.Zero))
                 {
-                    InputResoSelect.SelectedIndex = 0;
-                    if (!settings.GetWindowPos().Equals(RECT.Zero))
+                    for (int i = 0; i < resolutions.Count; i++)
                     {
-                        for (int i = 0; i < resolutions.Count; i++)
+                        if (settings.GetWindowPos().Equals(resolutions[i]))
                         {
-                            if (settings.GetWindowPos().Equals(resolutions[i]))
-                            {
-                                InputResoSelect.SelectedIndex = i;
-                            }
+                            InputResoSelect.SelectedIndex = i;
                         }
                     }
                 }
+            }
 
-                InputResoSelect.Enabled = true;
-            });
+            InputResoSelect.Enabled = true;
         }
 
         private void UpdateControllerList(Task<List<GamePad>> getControllers)
         {
+            if (getControllers.Exception != null)
+            {
+                throw getControllers.Exception.InnerException;
+            }
+
             connectedGamedPads = getControllers.Result;
             settings.ResetControllerSettings();
-            InvokeOnFormThread(() =>
-            {
-                InputControllerSelect.Items.Clear();
-                foreach (var gamepad in connectedGamedPads)
-                {
-                    InputControllerSelect.Items.Add(gamepad.ToString());
-                }
 
-                ControllerPlayerList.Enabled = true;
-                ControllerBTResetAll.Enabled = true;
-            });
+            InputControllerSelect.Items.Clear();
+            foreach (var gamepad in connectedGamedPads)
+            {
+                InputControllerSelect.Items.Add(gamepad.ToString());
+            }
+
+            ControllerPlayerList.Enabled = true;
+            ControllerBTResetAll.Enabled = true;
         }
 
         private void ControllerBTResetAll_Click(object sender, EventArgs e)

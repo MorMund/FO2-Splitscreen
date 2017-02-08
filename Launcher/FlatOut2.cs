@@ -43,7 +43,7 @@
         public static Task CreateSplitScreenSession(Settings settings)
         {
             FlatOut2 fo2 = new FlatOut2(settings);
-            return new Task(() => { StartSplitScreenSession(fo2); });
+            return Task.Factory.StartNew(() => { StartSplitScreenSession(fo2); });
         }
 
         /// <summary>
@@ -52,14 +52,12 @@
         /// <returns>Returns a task representing the querying operation.</returns>
         public static Task<List<GamePad>> GetGamePads()
         {
-            Task<List<GamePad>> task = new Task<List<GamePad>>(() =>
+            return Task.Factory.StartNew(() =>
             {
                 List<GamePad> pads = new List<GamePad>();
                 InitGamePadList(pads);
                 return pads;
             });
-
-            return task;
         }
 
         /// <summary>
@@ -68,14 +66,12 @@
         /// <returns>Returns a task representing the querying operation</returns>
         public static Task<List<RECT>> GetResolutions()
         {
-            Task<List<RECT>> task = new Task<List<RECT>>(() =>
+            return Task.Factory.StartNew(() =>
             {
                 List<RECT> resos = new List<RECT>();
                 InitResolutionsList(resos);
                 return resos;
             });
-
-            return task;
         }
 
         [DllImport("FlatOut2.dll", EntryPoint = "CreateNewInstance", ExactSpelling = false, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Unicode)]
