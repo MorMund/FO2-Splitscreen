@@ -118,24 +118,51 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="InputSkipIntros.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="InputSkipIntros.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 171</value>
+  </data>
+  <data name="InputSkipIntros.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 17</value>
+  </data>
+  <data name="InputSkipIntros.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="InputSkipIntros.Text" xml:space="preserve">
+    <value>Skip intro videos</value>
+  </data>
+  <data name="&gt;&gt;InputSkipIntros.Name" xml:space="preserve">
+    <value>InputSkipIntros</value>
+  </data>
+  <data name="&gt;&gt;InputSkipIntros.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputSkipIntros.Parent" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;InputSkipIntros.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="InputAttachConsole.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="InputAttachConsole.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="InputAttachConsole.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 171</value>
+    <value>7, 148</value>
   </data>
   <data name="InputAttachConsole.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 17</value>
+    <value>97, 17</value>
   </data>
   <data name="InputAttachConsole.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="InputAttachConsole.Text" xml:space="preserve">
-    <value>Attach Console</value>
+    <value>Attach console</value>
   </data>
   <data name="InputAttachConsole.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -150,7 +177,7 @@
     <value>TabGeneralSettings</value>
   </data>
   <data name="&gt;&gt;InputAttachConsole.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="InputResoSelect.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -174,7 +201,7 @@
     <value>TabGeneralSettings</value>
   </data>
   <data name="&gt;&gt;InputResoSelect.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="InputInstanceCount.Location" type="System.Drawing.Point, System.Drawing">
     <value>82, 3</value>
@@ -195,7 +222,7 @@
     <value>TabGeneralSettings</value>
   </data>
   <data name="&gt;&gt;InputInstanceCount.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="LabelResolution.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -226,7 +253,7 @@
     <value>TabGeneralSettings</value>
   </data>
   <data name="&gt;&gt;LabelResolution.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="LabelInstances.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -253,7 +280,7 @@
     <value>TabGeneralSettings</value>
   </data>
   <data name="&gt;&gt;LabelInstances.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="TabGeneralSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>

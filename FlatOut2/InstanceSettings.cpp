@@ -154,6 +154,11 @@ BOOL InstanceSettings::UseInputEmulation()
 	return m_settings->globals.useInputEmulation;
 }
 
+BOOL InstanceSettings::SkipIntros()
+{
+	return m_settings->globals.skipIntros;
+}
+
 InstanceSettings::InstanceSettings()
 {
 }

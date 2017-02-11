@@ -16,8 +16,12 @@ void _stdcall MyFO2PlayIntro()
 
 void GameDetour()
 {
+	// TODO : Use relative addresses.
 	oFO2PlayIntros = FO2_PlayIntroAddress;
 	oFO2PlayMov = FO2_PlayMovieAddress;
-	DetourAttach(&oFO2PlayIntros, MyFO2PlayIntro);
-	DetourAttach(&oFO2PlayMov, MyFO2PlayMovie);
+	if (InstanceSettings::GetSettings()->SkipIntros())
+	{
+		DetourAttach(&oFO2PlayIntros, MyFO2PlayIntro);
+		DetourAttach(&oFO2PlayMov, MyFO2PlayMovie);
+	}
 }

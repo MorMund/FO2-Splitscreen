@@ -19,6 +19,7 @@
         private List<GamePad> availablePads = new List<GamePad>();
         private Settings settings = null;
         private bool suppressUpdate = false;
+
         public Setup()
         {
             InitializeComponent();
@@ -161,6 +162,8 @@
         {
             InputInstanceCount.Value = settings.InstanceCount;
             InputAttachConsole.Checked = settings.XMLAttachConsole[0];
+            settings.SkipIntros = oldSettings.SkipIntros;
+            InputSkipIntros.Checked = settings.SkipIntros;
             RECT res = (oldSettings.GetWindowPos().Equals(RECT.Zero) ? new RECT(0, 0, 640, 480) : oldSettings.GetWindowPos());
             settings.SetDefaultWindowPos(res.Width, res.Height);
         }
@@ -309,6 +312,11 @@
         private void InputAttachConsole_CheckedChanged(object sender, EventArgs e)
         {
             settings.AttachConsoleToAll(InputAttachConsole.Checked);
+        }
+
+        private void InputSkipIntros_CheckedChanged(object sender, EventArgs e)
+        {
+            settings.SkipIntros = InputSkipIntros.Checked;
         }
     }
 }

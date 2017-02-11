@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Setup));
             this.ConfigTabControl = new System.Windows.Forms.TabControl();
             this.TabGeneralSettings = new System.Windows.Forms.TabPage();
+            this.InputAttachConsole = new System.Windows.Forms.CheckBox();
             this.InputResoSelect = new System.Windows.Forms.ComboBox();
             this.InputInstanceCount = new System.Windows.Forms.NumericUpDown();
             this.LabelResolution = new System.Windows.Forms.Label();
@@ -42,7 +43,7 @@
             this.ControllerBTResetAll = new System.Windows.Forms.Button();
             this.ControllerPlayerList = new System.Windows.Forms.ListView();
             this.ButtonLaunch = new System.Windows.Forms.Button();
-            this.InputAttachConsole = new System.Windows.Forms.CheckBox();
+            this.InputSkipIntros = new System.Windows.Forms.CheckBox();
             this.ConfigTabControl.SuspendLayout();
             this.TabGeneralSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InputInstanceCount)).BeginInit();
@@ -61,6 +62,7 @@
             // 
             // TabGeneralSettings
             // 
+            this.TabGeneralSettings.Controls.Add(this.InputSkipIntros);
             this.TabGeneralSettings.Controls.Add(this.InputAttachConsole);
             this.TabGeneralSettings.Controls.Add(this.InputResoSelect);
             this.TabGeneralSettings.Controls.Add(this.InputInstanceCount);
@@ -69,6 +71,13 @@
             resources.ApplyResources(this.TabGeneralSettings, "TabGeneralSettings");
             this.TabGeneralSettings.Name = "TabGeneralSettings";
             this.TabGeneralSettings.UseVisualStyleBackColor = true;
+            // 
+            // InputAttachConsole
+            // 
+            resources.ApplyResources(this.InputAttachConsole, "InputAttachConsole");
+            this.InputAttachConsole.Name = "InputAttachConsole";
+            this.InputAttachConsole.UseVisualStyleBackColor = true;
+            this.InputAttachConsole.CheckedChanged += new System.EventHandler(this.InputAttachConsole_CheckedChanged);
             // 
             // InputResoSelect
             // 
@@ -158,12 +167,14 @@
             this.ButtonLaunch.UseVisualStyleBackColor = true;
             this.ButtonLaunch.Click += new System.EventHandler(this.ButtonLaunch_Click);
             // 
-            // InputAttachConsole
+            // InputSkipIntros
             // 
-            resources.ApplyResources(this.InputAttachConsole, "InputAttachConsole");
-            this.InputAttachConsole.Name = "InputAttachConsole";
-            this.InputAttachConsole.UseVisualStyleBackColor = true;
-            this.InputAttachConsole.CheckedChanged += new System.EventHandler(this.InputAttachConsole_CheckedChanged);
+            resources.ApplyResources(this.InputSkipIntros, "InputSkipIntros");
+            this.InputSkipIntros.Checked = true;
+            this.InputSkipIntros.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.InputSkipIntros.Name = "InputSkipIntros";
+            this.InputSkipIntros.UseVisualStyleBackColor = true;
+            this.InputSkipIntros.CheckedChanged += new System.EventHandler(this.InputSkipIntros_CheckedChanged);
             // 
             // Setup
             // 
@@ -202,5 +213,6 @@
         private System.Windows.Forms.Button ControllerBTResetAll;
         private System.Windows.Forms.ListView ControllerPlayerList;
         private System.Windows.Forms.CheckBox InputAttachConsole;
+        private System.Windows.Forms.CheckBox InputSkipIntros;
     }
 }

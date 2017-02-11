@@ -40,6 +40,7 @@
         private int settingsSize = -1;
         private WaitHandle waitHandle;
         private bool useInputEmulation;
+        private bool skipIntros = true;
         #endregion
 
         #region Constructors
@@ -254,6 +255,10 @@
                 virtAddressRange = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets if the game should use gamepad to keyboard emulation. (CURRENTLY BUGGY. KEEP DISABLED FOR RELEASES.)
+        /// </summary>
         [XmlElement(ElementName = "UseInputEmulation")]
         public bool UseInputEmulation
         {
@@ -265,6 +270,23 @@
             set
             {
                 useInputEmulation = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets if the intro videos should be skipped
+        /// </summary>
+        [XmlElement(ElementName = "SkipIntros")]
+        public bool SkipIntros
+        {
+            get
+            {
+                return skipIntros;
+            }
+
+            set
+            {
+                skipIntros = value;
             }
         }
         #endregion
@@ -505,6 +527,7 @@
             SET_GlobalSettings global = new SET_GlobalSettings();
             global.InstanceCount = instanceCount;
             global.UseInputEmulation = useInputEmulation;
+            global.SkipIntros = skipIntros;
             global.AttachConsole = new bool[FlatOut2.MaxInstanceCount];
             global.WindowPos = new RECT[FlatOut2.MaxInstanceCount];
             global.Controller = new Guid[FlatOut2.MaxInstanceCount];
@@ -622,6 +645,7 @@
         {
             public int InstanceCount;
             public bool UseInputEmulation;
+            public bool SkipIntros;
             public ushort VirtHostPort;
             public byte VirtAddressOffset;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]

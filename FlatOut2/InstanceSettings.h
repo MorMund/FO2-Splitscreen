@@ -31,6 +31,7 @@ struct SET_GlobalSettings
 {
 	int instanceCount;
 	BOOL useInputEmulation;
+	BOOL skipIntros;
 	SET_NetSettings network;
 	GUID controller[FO2_MaxClientCount];
 	BOOL attachConsole[FO2_MaxClientCount];
@@ -63,6 +64,7 @@ public:
 	void SetDirect3DHook(CDirect3D9Hook* d3d);
 	void SetDirectInputHook(CDirectInput8Hook* dinput);
 	BOOL UseInputEmulation();
+	BOOL SkipIntros();
 private:
 	InstanceSettings();
 private:
