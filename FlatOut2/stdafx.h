@@ -17,7 +17,6 @@
 #include <d3d9.h>
 #include <initguid.h>
 #include <dinput.h>
-#include <D3dx9core.h>
 #include <Iphlpapi.h>
 #include <Psapi.h>
 

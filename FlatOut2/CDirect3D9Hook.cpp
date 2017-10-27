@@ -1,14 +1,6 @@
 #include "stdafx.h"
 #include "CDirect3D9Hook.h"
 
-void CDirect3D9Hook::SetDebugText(LPWSTR text)
-{
-	if (m_pdev != NULL)
-	{
-		m_pdev->SetDebugText(text);
-	}
-}
-
 HRESULT CDirect3D9Hook::CreateDevice(UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS * pPresentationParameters, IDirect3DDevice9 ** ppReturnedDeviceInterface)
 {
 	pPresentationParameters->Windowed = true;

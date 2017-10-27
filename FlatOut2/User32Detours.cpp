@@ -195,12 +195,6 @@ BOOL WINAPI MyPeekMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgF
 		}
 	}
 
-	LPWSTR str = GetDebugText();
-	if (instSet.d3d != NULL)
-	{
-		instSet.d3d->SetDebugText(str);
-	}
-
 	return ret;
 }
 

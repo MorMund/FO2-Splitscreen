@@ -7,16 +7,9 @@ class CDirect3D9DevHook : public IDirect3DDevice9
 {
 private:
 	IDirect3DDevice9* m_ptr;
-	LPD3DXFONT m_dbgFont;
-	WCHAR* m_dbgText;
 public:
-	CDirect3D9DevHook(IDirect3DDevice9* ptr) : m_ptr(ptr)
-	{
-		HRESULT fr = D3DXCreateFont(m_ptr, 12, 0, FW_NORMAL, 1, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DRAFT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, D3D_DEBUGFONTNAME, &m_dbgFont);
-	}
-
+	CDirect3D9DevHook(IDirect3DDevice9* ptr) : m_ptr(ptr) {}
 public:
-	void _stdcall SetDebugText(LPWSTR dbgText);
 	HRESULT _stdcall EndScene();
 #pragma region stubs
 	COM_METHOD(HRESULT, QueryInterface)(THIS_ REFIID riid, void** ppvObj) { return  m_ptr->QueryInterface(riid, ppvObj); }
