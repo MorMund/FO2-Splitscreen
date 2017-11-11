@@ -48,6 +48,7 @@
         private void LoadSettings()
         {
             ValidateInstallation();
+            AutoUpdate.CheckVersion();
 
             if (settings != null)
             {
@@ -143,8 +144,6 @@
             CancellationToken.None,
             TaskContinuationOptions.OnlyOnFaulted,
             TaskScheduler.FromCurrentSynchronizationContext());
-
-
         }
 
         private void InputInstanceCount_ValueChanged(object sender, EventArgs e)
@@ -233,7 +232,6 @@
             }
 
             connectedGamedPads = getControllers.Result;
-            settings.ResetControllerSettings();
 
             InputControllerSelect.Items.Clear();
             foreach (var gamepad in connectedGamedPads)
