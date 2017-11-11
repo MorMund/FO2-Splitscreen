@@ -2,7 +2,7 @@
 #include "TestScriptRunner.h"
 
 
-TestScriptRunner::TestScriptRunner(LPWSTR scriptFile, PressKeyCallback pkCallback)
+TestScriptRunner::TestScriptRunner(const wchar_t* scriptFile, PressKeyCallback pkCallback)
 {
 	try {
 		m_scriptFile.open(scriptFile, std::ios::in);

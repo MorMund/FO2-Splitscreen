@@ -117,11 +117,159 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&gt;&gt;TabGeneralSettings.Name" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;TabGeneralSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabGeneralSettings.Parent" xml:space="preserve">
+    <value>ConfigTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabGeneralSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TabController.Name" xml:space="preserve">
+    <value>TabController</value>
+  </data>
+  <data name="&gt;&gt;TabController.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabController.Parent" xml:space="preserve">
+    <value>ConfigTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabController.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ConfigTabControl.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="ConfigTabControl.Location" type="System.Drawing.Point, System.Drawing">
+    <value>1, -1</value>
+  </data>
+  <data name="ConfigTabControl.Size" type="System.Drawing.Size, System.Drawing">
+    <value>282, 220</value>
+  </data>
+  <data name="ConfigTabControl.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ConfigTabControl.Name" xml:space="preserve">
+    <value>ConfigTabControl</value>
+  </data>
+  <data name="&gt;&gt;ConfigTabControl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ConfigTabControl.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ConfigTabControl.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;InputSkipIntros.Name" xml:space="preserve">
+    <value>InputSkipIntros</value>
+  </data>
+  <data name="&gt;&gt;InputSkipIntros.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputSkipIntros.Parent" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;InputSkipIntros.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;InputAttachConsole.Name" xml:space="preserve">
+    <value>InputAttachConsole</value>
+  </data>
+  <data name="&gt;&gt;InputAttachConsole.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputAttachConsole.Parent" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;InputAttachConsole.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;InputResoSelect.Name" xml:space="preserve">
+    <value>InputResoSelect</value>
+  </data>
+  <data name="&gt;&gt;InputResoSelect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputResoSelect.Parent" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;InputResoSelect.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;InputInstanceCount.Name" xml:space="preserve">
+    <value>InputInstanceCount</value>
+  </data>
+  <data name="&gt;&gt;InputInstanceCount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputInstanceCount.Parent" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;InputInstanceCount.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;LabelResolution.Name" xml:space="preserve">
+    <value>LabelResolution</value>
+  </data>
+  <data name="&gt;&gt;LabelResolution.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelResolution.Parent" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;LabelResolution.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;LabelInstances.Name" xml:space="preserve">
+    <value>LabelInstances</value>
+  </data>
+  <data name="&gt;&gt;LabelInstances.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelInstances.Parent" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;LabelInstances.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="TabGeneralSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="TabGeneralSettings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="TabGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>274, 194</value>
+  </data>
+  <data name="TabGeneralSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TabGeneralSettings.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="&gt;&gt;TabGeneralSettings.Name" xml:space="preserve">
+    <value>TabGeneralSettings</value>
+  </data>
+  <data name="&gt;&gt;TabGeneralSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TabGeneralSettings.Parent" xml:space="preserve">
+    <value>ConfigTabControl</value>
+  </data>
+  <data name="&gt;&gt;TabGeneralSettings.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="InputSkipIntros.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="InputSkipIntros.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 171</value>
   </data>
@@ -227,7 +375,6 @@
   <data name="LabelResolution.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="LabelResolution.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -282,31 +429,112 @@
   <data name="&gt;&gt;LabelInstances.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="TabGeneralSettings.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+  <data name="&gt;&gt;ControllerOptionsPanel.Name" xml:space="preserve">
+    <value>ControllerOptionsPanel</value>
   </data>
-  <data name="TabGeneralSettings.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
+  <data name="&gt;&gt;ControllerOptionsPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="TabGeneralSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 194</value>
+  <data name="&gt;&gt;ControllerOptionsPanel.Parent" xml:space="preserve">
+    <value>TabController</value>
   </data>
-  <data name="TabGeneralSettings.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;ControllerOptionsPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="TabGeneralSettings.Text" xml:space="preserve">
-    <value>General</value>
+  <data name="&gt;&gt;ControllerBTResetAll.Name" xml:space="preserve">
+    <value>ControllerBTResetAll</value>
   </data>
-  <data name="&gt;&gt;TabGeneralSettings.Name" xml:space="preserve">
-    <value>TabGeneralSettings</value>
+  <data name="&gt;&gt;ControllerBTResetAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;TabGeneralSettings.Type" xml:space="preserve">
+  <data name="&gt;&gt;ControllerBTResetAll.Parent" xml:space="preserve">
+    <value>TabController</value>
+  </data>
+  <data name="&gt;&gt;ControllerBTResetAll.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;ControllerPlayerList.Name" xml:space="preserve">
+    <value>ControllerPlayerList</value>
+  </data>
+  <data name="&gt;&gt;ControllerPlayerList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ControllerPlayerList.Parent" xml:space="preserve">
+    <value>TabController</value>
+  </data>
+  <data name="&gt;&gt;ControllerPlayerList.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="TabController.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="TabController.Size" type="System.Drawing.Size, System.Drawing">
+    <value>274, 194</value>
+  </data>
+  <data name="TabController.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="TabController.Text" xml:space="preserve">
+    <value>Controllers</value>
+  </data>
+  <data name="&gt;&gt;TabController.Name" xml:space="preserve">
+    <value>TabController</value>
+  </data>
+  <data name="&gt;&gt;TabController.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;TabGeneralSettings.Parent" xml:space="preserve">
+  <data name="&gt;&gt;TabController.Parent" xml:space="preserve">
     <value>ConfigTabControl</value>
   </data>
-  <data name="&gt;&gt;TabGeneralSettings.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;TabController.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectController.Name" xml:space="preserve">
+    <value>LabelSelectController</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectController.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectController.Parent" xml:space="preserve">
+    <value>ControllerOptionsPanel</value>
+  </data>
+  <data name="&gt;&gt;LabelSelectController.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;InputControllerSelect.Name" xml:space="preserve">
+    <value>InputControllerSelect</value>
+  </data>
+  <data name="&gt;&gt;InputControllerSelect.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;InputControllerSelect.Parent" xml:space="preserve">
+    <value>ControllerOptionsPanel</value>
+  </data>
+  <data name="&gt;&gt;InputControllerSelect.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ControllerOptionsPanel.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ControllerOptionsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>106, 4</value>
+  </data>
+  <data name="ControllerOptionsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>161, 158</value>
+  </data>
+  <data name="ControllerOptionsPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;ControllerOptionsPanel.Name" xml:space="preserve">
+    <value>ControllerOptionsPanel</value>
+  </data>
+  <data name="&gt;&gt;ControllerOptionsPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ControllerOptionsPanel.Parent" xml:space="preserve">
+    <value>TabController</value>
+  </data>
+  <data name="&gt;&gt;ControllerOptionsPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="LabelSelectController.AutoSize" type="System.Boolean, mscorlib">
@@ -356,30 +584,6 @@
   </data>
   <data name="&gt;&gt;InputControllerSelect.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="ControllerOptionsPanel.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="ControllerOptionsPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>106, 4</value>
-  </data>
-  <data name="ControllerOptionsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 158</value>
-  </data>
-  <data name="ControllerOptionsPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;ControllerOptionsPanel.Name" xml:space="preserve">
-    <value>ControllerOptionsPanel</value>
-  </data>
-  <data name="&gt;&gt;ControllerOptionsPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ControllerOptionsPanel.Parent" xml:space="preserve">
-    <value>TabController</value>
-  </data>
-  <data name="&gt;&gt;ControllerOptionsPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="ControllerBTResetAll.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -432,56 +636,8 @@
   <data name="&gt;&gt;ControllerPlayerList.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="TabController.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
-  </data>
-  <data name="TabController.Size" type="System.Drawing.Size, System.Drawing">
-    <value>274, 194</value>
-  </data>
-  <data name="TabController.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="TabController.Text" xml:space="preserve">
-    <value>Controllers</value>
-  </data>
-  <data name="&gt;&gt;TabController.Name" xml:space="preserve">
-    <value>TabController</value>
-  </data>
-  <data name="&gt;&gt;TabController.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;TabController.Parent" xml:space="preserve">
-    <value>ConfigTabControl</value>
-  </data>
-  <data name="&gt;&gt;TabController.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="ConfigTabControl.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="ConfigTabControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, -1</value>
-  </data>
-  <data name="ConfigTabControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>282, 220</value>
-  </data>
-  <data name="ConfigTabControl.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;ConfigTabControl.Name" xml:space="preserve">
-    <value>ConfigTabControl</value>
-  </data>
-  <data name="&gt;&gt;ConfigTabControl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ConfigTabControl.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;ConfigTabControl.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="ButtonLaunch.Location" type="System.Drawing.Point, System.Drawing">
-    <value>100, 226</value>
+    <value>100, 242</value>
   </data>
   <data name="ButtonLaunch.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -502,6 +658,36 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ButtonLaunch.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="NewVerLink.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="NewVerLink.Location" type="System.Drawing.Point, System.Drawing">
+    <value>79, 226</value>
+  </data>
+  <data name="NewVerLink.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 13</value>
+  </data>
+  <data name="NewVerLink.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="NewVerLink.Text" xml:space="preserve">
+    <value>New version available!</value>
+  </data>
+  <data name="NewVerLink.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;NewVerLink.Name" xml:space="preserve">
+    <value>NewVerLink</value>
+  </data>
+  <data name="&gt;&gt;NewVerLink.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;NewVerLink.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;NewVerLink.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -514,7 +700,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>284, 261</value>
+    <value>284, 277</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>FlatOut2 Splitscreen Launcher</value>

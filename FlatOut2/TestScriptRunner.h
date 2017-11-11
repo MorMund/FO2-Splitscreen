@@ -14,7 +14,7 @@ typedef  void PressKeyCallback(DWORD key);
 class TestScriptRunner
 {
 public:
-	TestScriptRunner(LPWSTR scriptFile,PressKeyCallback pkCallback);
+	TestScriptRunner(const wchar_t* scriptFile,PressKeyCallback pkCallback);
 	~TestScriptRunner();
 	void SetSetting(std::string setting, DWORD value);
 	DWORD RunOnce();

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows.Forms;
@@ -38,8 +39,8 @@
                 EnterConfigTab();
                 ConfigTabControl.Enabled = true;
 #if DEBUG
-                                InputAttachConsole.Enabled = true;
-                                InputAttachConsole.Visible = true;
+                InputAttachConsole.Enabled = true;
+                InputAttachConsole.Visible = true;
 #endif
             },
             CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
@@ -48,6 +49,9 @@
         private void LoadSettings()
         {
             ValidateInstallation();
+            AutoUpdate.NewVersion += AutoUpdate_NewVersion;
+            AutoUpdate.NotifyNewVersion += AutoUpdate_NotifyNewVersion;
+            AutoUpdate.CheckVersion();
 
             if (settings != null)
             {
@@ -70,6 +74,31 @@
             {
                 this.settings = new Settings(1);
             }
+        }
+
+        private void AutoUpdate_NotifyNewVersion(object sender, AutoUpdate.VersionUpdateEventArgs e)
+        {
+            Invoke(new Action(() =>
+            {
+                using (
+                    var notify = new UpdateNotifier(
+                        e.Version.Version,
+                        e.Version.ChangeLog,
+                        "Download new version",
+                        "https://github.com/DeadlySurprise/FO2-Splitscreen/releases"))
+                {
+                    notify.ShowDialog();
+                }
+            }));
+        }
+
+        private void AutoUpdate_NewVersion(object sender, EventArgs e)
+        {
+            Invoke(new Action(() =>
+            {
+                NewVerLink.Enabled = true;
+                NewVerLink.Visible = true;
+            }));
         }
 
         private void ValidateInstallation()
@@ -102,6 +131,16 @@
                    "Installation Error!",
                    MessageBoxButtons.OK,
                    MessageBoxIcon.Error);
+                isValid = false;
+            }
+
+            if (AutoUpdate.LauncherVersion != AutoUpdate.FlatOutDLLVersion)
+            {
+                MessageBox.Show(
+                     "FlatOut2.dll is out of Date! Please get the newest version from https://github.com/DeadlySurprise/FO2-Splitscreen/releases.",
+                     "Installation Error!",
+                     MessageBoxButtons.OK,
+                     MessageBoxIcon.Error);
                 isValid = false;
             }
 
@@ -314,6 +353,11 @@
         private void InputSkipIntros_CheckedChanged(object sender, EventArgs e)
         {
             settings.SkipIntros = InputSkipIntros.Checked;
+        }
+
+        private void NewVerLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/DeadlySurprise/FO2-Splitscreen/releases");
         }
     }
 }

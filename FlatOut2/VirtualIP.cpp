@@ -115,11 +115,11 @@ DWORD VirtualIP::DWaitForEvents(DWORD cEvents, const WSAEVENT * lphEvents, BOOL 
 	{
 		int v = UpdateVirtualSocket(NULL, cEvents, lphEvents);
 		// Check if the currently waiting socket(s) have a buffered virtual packet
-		for each (std::pair<SOCKET, SocketState*>  statePair in m_socketStates)
+		for(auto statePair = m_socketStates.begin(); statePair != m_socketStates.end(); ++statePair)
 		{
-			if (statePair.second->virtRecvBuffers.size() > 0)
+			if (statePair->second->virtRecvBuffers.size() > 0)
 			{
-				int eventIndex = PrepareEvent(statePair.second, cEvents, lphEvents);
+				int eventIndex = PrepareEvent(statePair->second, cEvents, lphEvents);
 				if (-1 != eventIndex)
 				{
 					return eventIndex;
@@ -215,9 +215,9 @@ int VirtualIP::HandleVirtNetwork(SocketState** pprecvSock)
 	}
 
 	VirtIPHeader virtHead = *((VirtIPHeader*)virtBuf.wsaBuf.buf);
-	for each (std::pair<SOCKET, SocketState*> sockPair in m_socketStates)
+	for (auto statePair = m_socketStates.begin(); statePair != m_socketStates.end(); ++statePair)
 	{
-		SocketState* sockState = sockPair.second;
+		SocketState* sockState = statePair->second;
 		if (sockState->port == virtHead.virtPort)
 		{
 			*pprecvSock = sockState;
@@ -370,7 +370,7 @@ hostent * VirtualIP::GetHostByName(const char * name)
 	}
 }
 
-void VirtualIP::WriteToLog(LPWSTR msg)
+void VirtualIP::WriteToLog(const wchar_t* msg)
 {
 #if _DEBUG
 	DWORD err = WaitForSingleObject(m_netLogLock, 10);
@@ -406,7 +406,7 @@ void VirtualIP::WriteToLog(LPWSTR msg)
 #endif //_DEBUG
 }
 
-void VirtualIP::WritePacketInfoToLog(LPWSTR tags, sockaddr_in from, sockaddr_in to, int len)
+void VirtualIP::WritePacketInfoToLog(const wchar_t* tags, sockaddr_in from, sockaddr_in to, int len)
 {
 	WCHAR buffer[2048];
 	WCHAR addrFrom[16];

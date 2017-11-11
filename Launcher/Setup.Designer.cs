@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Setup));
             this.ConfigTabControl = new System.Windows.Forms.TabControl();
             this.TabGeneralSettings = new System.Windows.Forms.TabPage();
+            this.InputSkipIntros = new System.Windows.Forms.CheckBox();
             this.InputAttachConsole = new System.Windows.Forms.CheckBox();
             this.InputResoSelect = new System.Windows.Forms.ComboBox();
             this.InputInstanceCount = new System.Windows.Forms.NumericUpDown();
@@ -43,7 +44,7 @@
             this.ControllerBTResetAll = new System.Windows.Forms.Button();
             this.ControllerPlayerList = new System.Windows.Forms.ListView();
             this.ButtonLaunch = new System.Windows.Forms.Button();
-            this.InputSkipIntros = new System.Windows.Forms.CheckBox();
+            this.NewVerLink = new System.Windows.Forms.LinkLabel();
             this.ConfigTabControl.SuspendLayout();
             this.TabGeneralSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InputInstanceCount)).BeginInit();
@@ -71,6 +72,15 @@
             resources.ApplyResources(this.TabGeneralSettings, "TabGeneralSettings");
             this.TabGeneralSettings.Name = "TabGeneralSettings";
             this.TabGeneralSettings.UseVisualStyleBackColor = true;
+            // 
+            // InputSkipIntros
+            // 
+            resources.ApplyResources(this.InputSkipIntros, "InputSkipIntros");
+            this.InputSkipIntros.Checked = true;
+            this.InputSkipIntros.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.InputSkipIntros.Name = "InputSkipIntros";
+            this.InputSkipIntros.UseVisualStyleBackColor = true;
+            this.InputSkipIntros.CheckedChanged += new System.EventHandler(this.InputSkipIntros_CheckedChanged);
             // 
             // InputAttachConsole
             // 
@@ -167,19 +177,18 @@
             this.ButtonLaunch.UseVisualStyleBackColor = true;
             this.ButtonLaunch.Click += new System.EventHandler(this.ButtonLaunch_Click);
             // 
-            // InputSkipIntros
+            // NewVerLink
             // 
-            resources.ApplyResources(this.InputSkipIntros, "InputSkipIntros");
-            this.InputSkipIntros.Checked = true;
-            this.InputSkipIntros.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.InputSkipIntros.Name = "InputSkipIntros";
-            this.InputSkipIntros.UseVisualStyleBackColor = true;
-            this.InputSkipIntros.CheckedChanged += new System.EventHandler(this.InputSkipIntros_CheckedChanged);
+            resources.ApplyResources(this.NewVerLink, "NewVerLink");
+            this.NewVerLink.Name = "NewVerLink";
+            this.NewVerLink.TabStop = true;
+            this.NewVerLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.NewVerLink_LinkClicked);
             // 
             // Setup
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.NewVerLink);
             this.Controls.Add(this.ButtonLaunch);
             this.Controls.Add(this.ConfigTabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -194,6 +203,7 @@
             this.ControllerOptionsPanel.ResumeLayout(false);
             this.ControllerOptionsPanel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -214,5 +224,6 @@
         private System.Windows.Forms.ListView ControllerPlayerList;
         private System.Windows.Forms.CheckBox InputAttachConsole;
         private System.Windows.Forms.CheckBox InputSkipIntros;
+        private System.Windows.Forms.LinkLabel NewVerLink;
     }
 }

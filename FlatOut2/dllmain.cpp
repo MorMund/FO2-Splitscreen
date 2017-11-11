@@ -4,7 +4,6 @@
 #include "WinSockDetours.h"
 #include "DXDetours.h"
 #include "DIDetours.h"
-#include "DebugOutput.h"
 
 void earlyDetour()
 {
@@ -17,7 +16,6 @@ void earlyDetour()
 	if (DetourTransactionCommit() != NO_ERROR)
 	{
 		std::cout << "Detour Error!" << std::endl;
-		dbgError = L"Detour Error!";
 		throw std::exception("Detour Error!");
 	}
 }

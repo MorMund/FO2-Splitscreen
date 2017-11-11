@@ -3,7 +3,6 @@
 #include "TestScriptRunner.h"
 #include "WinSockDetours.h"
 #include "GameDetours.h"
-#include "DebugOutput.h"
 
 PVOID oCreateWinExA;
 PVOID oPeekMessageA;
@@ -24,40 +23,6 @@ BOOL disableJoyInput = FALSE;
 
 std::list<UINT> lastEmulatedPresses;
 
-LPWSTR GetDebugText()
-{
-	InstanceSettings* set = InstanceSettings::GetSettings();
-	if (set->UseInputEmulation())
-	{
-		if (controllerGuid == NULL && set->GetLocalSettings().instanceController != GUID_NULL)
-		{
-			controllerGuid = (LPWSTR)VirtualAlloc(NULL, sizeof(WCHAR[64]), MEM_COMMIT, PAGE_READWRITE);
-			if (controllerGuid == NULL)
-			{
-				std::cout << "Controller GUID debug text buffer allocation failed! Error : " << GetLastError() << std::endl;
-			}
-			StringFromGUID2(InstanceSettings::GetSettings()->GetLocalSettings().instanceController, controllerGuid, 64);
-		}
-		StringCbPrintf(
-			dbgTBuffer,
-			sizeof(dbgTBuffer),
-			L"%s PID : %d Instance ID: %d/%d Controller: %s Input emulation : %s",
-			dbgError, GetCurrentProcessId(),
-			InstanceSettings::GetSettings()->GetLocalSettings().instanceID + 1, InstanceSettings::GetSettings()->GetInstanceCount(),
-			(controllerGuid == NULL ? L"None" : controllerGuid),
-			disableJoyInput ? L"Off" : L"On");
-	}
-	else
-	{
-		StringCbPrintf(
-			dbgTBuffer,
-			sizeof(dbgTBuffer),
-			L"%s %s", set->IsHostInstance() ? L"HOST" : L"", set->GetLocalSettings().instanceController == GUID_NULL ? L"NO CONTROLLER" : L"");
-	}
-
-	return dbgTBuffer;
-}
-
 void WinDetour()
 {
 	DetourTransactionBegin();
@@ -65,7 +30,6 @@ void WinDetour()
 	GameDetour();
 	if (DetourTransactionCommit() != NO_ERROR)
 	{
-		dbgError = L"Detour Error!";
 		std::cout << "Detour Error!" << std::endl;
 	}
 }
@@ -111,9 +75,9 @@ BOOL WINAPI MyPeekMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgF
 		{
 			if (!lastEmulatedPresses.empty())
 			{
-				for each (UINT key in lastEmulatedPresses)
+				for (std::list<UINT>::iterator key = lastEmulatedPresses.begin(); key != lastEmulatedPresses.end(); ++key)
 				{
-					EmulateKeyRelease(key);
+					EmulateKeyRelease(*key);
 				}
 
 				lastEmulatedPresses.clear();
@@ -248,7 +212,7 @@ HWND WINAPI MyCreateWindowExA(
 		Sleep(5000);
 	}
 	WinDetour();
-	if (NULL != script &&  InstanceSettings::GetSettings()->IsHostInstance())
+	if (NULL != script && InstanceSettings::GetSettings()->IsHostInstance())
 	{
 		script->SetSetting(std::string("HOST"), 1);
 	}
