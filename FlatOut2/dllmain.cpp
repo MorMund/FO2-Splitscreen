@@ -22,10 +22,49 @@ void earlyDetour()
 	}
 }
 
+void GenerateExceptionData(WCHAR* buffer, size_t size, PEXCEPTION_RECORD exception)
+{
+	switch (exception->ExceptionCode)
+	{
+	case EXCEPTION_ACCESS_VIOLATION:
+		if (exception->NumberParameters < 2)
+		{
+			StringCbPrintf(buffer, size, L"Access Violation (no info)");
+		}
+		else
+		{
+			auto type = exception->ExceptionInformation[0];
+			
+			StringCbPrintf(buffer, size, L"%s ACCESS VIOLATION at 0x%x",
+				type == 0 ? L"READ" : type == 1 ? L"WRITE" : type == 8 ? L"DEP" : L"UNKNOWN",
+				exception->ExceptionInformation[1]);
+		}
+		break;
+	default:
+		StringCbPrintf(buffer, size, L"Error Code : 0x%x", exception->ExceptionRecord->ExceptionCode);
+		break;
+	}
+}
+
 LONG WINAPI TerminateHandler(LPEXCEPTION_POINTERS exception)
 {
 	WCHAR buffer[4096];
-	StringCbPrintf(buffer, sizeof(buffer), L"Unhandled exception at 0x%x! Error Code :0x%x", exception->ExceptionRecord->ExceptionAddress, exception->ExceptionRecord->ExceptionCode);
+	WCHAR dllPathBuf[4096];
+	WCHAR excepData[1024];
+	HMODULE errMod = NULL;
+	uint32_t errOffset = 0;
+	if (
+		GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, (LPWSTR)exception->ExceptionRecord->ExceptionAddress, &errMod))
+	{
+		GetModuleFileName(errMod, dllPathBuf, sizeof(dllPathBuf));
+		auto name = wcsrchr(dllPathBuf, '\\') + 1;
+		errOffset = (uint32_t)exception->ExceptionRecord->ExceptionAddress - (uint32_t)errMod;
+		GenerateExceptionData(excepData, sizeof(excepData), exception->ExceptionRecord);
+		StringCbPrintf(buffer, sizeof(buffer), L"Unhandled exception at %s+0x%x(0x%x)! %s", name, errOffset, exception->ExceptionRecord->ExceptionAddress, excepData);
+	}
+	else {
+		StringCbPrintf(buffer, sizeof(buffer), L"Unhandled exception at 0x%x! Error Code :0x%x", exception->ExceptionRecord->ExceptionAddress, exception->ExceptionRecord->ExceptionCode);
+	}
 	MessageBox(NULL, buffer, L"Unhandled Exception", MB_OK | MB_ICONERROR);
 	return EXCEPTION_EXECUTE_HANDLER;
 }

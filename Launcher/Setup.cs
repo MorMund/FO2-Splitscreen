@@ -48,7 +48,6 @@
         private void LoadSettings()
         {
             ValidateInstallation();
-            AutoUpdate.CheckVersion();
 
             if (settings != null)
             {
