@@ -8,9 +8,8 @@ private:
 	IDirect3D9* m_ptr;
 	CDirect3D9DevHook* m_pdev;
 public:
-	CDirect3D9Hook(IDirect3D9* ptr) : m_ptr(ptr) {}
+	CDirect3D9Hook(IDirect3D9* ptr);
 public:
-	void _stdcall SetDebugText(LPWSTR text);
 	HRESULT _stdcall CreateDevice(UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS* pPresentationParameters, IDirect3DDevice9** ppReturnedDeviceInterface);
 
 	/*** IUnknown methods ***/

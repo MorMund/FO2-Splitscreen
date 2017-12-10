@@ -6,6 +6,7 @@
 #pragma once
 #include "targetver.h"
 #define DIRECTINPUT_VERSION 0x0800
+#define DEFAULT_ERRMSG_BUFFER 4096
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 // Windows Header Files:
 #include <windows.h>

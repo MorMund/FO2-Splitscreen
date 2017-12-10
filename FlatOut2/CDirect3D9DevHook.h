@@ -8,7 +8,7 @@ class CDirect3D9DevHook : public IDirect3DDevice9
 private:
 	IDirect3DDevice9* m_ptr;
 public:
-	CDirect3D9DevHook(IDirect3DDevice9* ptr) : m_ptr(ptr) {}
+	CDirect3D9DevHook(IDirect3DDevice9* ptr);
 public:
 	HRESULT _stdcall EndScene();
 #pragma region stubs
