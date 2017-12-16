@@ -45,6 +45,7 @@ BOOL WriteErrorLog(const char* filename, HRESULT hr, UINT Adapter, D3DDEVTYPE De
 HRESULT CDirect3D9Hook::CreateDevice(UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS * pPresentationParameters, IDirect3DDevice9 ** ppReturnedDeviceInterface)
 {
 	pPresentationParameters->Windowed = true;
+	pPresentationParameters->FullScreen_RefreshRateInHz = 0;
 	HRESULT hr = m_ptr->CreateDevice(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, ppReturnedDeviceInterface);
 	if (hr != D3D_OK)
 	{
