@@ -68,9 +68,7 @@
         {
             return Task.Factory.StartNew(() =>
             {
-                List<RECT> resos = new List<RECT>();
-                InitResolutionsList(resos);
-                return resos;
+                return new List<RECT>(new RECT[] { new RECT(0, 0, 1920 / 2, 1080 / 2) });
             });
         }
 

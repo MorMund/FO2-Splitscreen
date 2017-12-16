@@ -10,8 +10,9 @@ private:
 public:
 	CDirect3D9Hook(IDirect3D9* ptr);
 public:
-	HRESULT _stdcall CreateDevice(UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS* pPresentationParameters, IDirect3DDevice9** ppReturnedDeviceInterface);
-
+	HRESULT _stdcall CreateDevice (UINT Adapter, D3DDEVTYPE DeviceType, HWND hFocusWindow, DWORD BehaviorFlags, D3DPRESENT_PARAMETERS* pPresentationParameters, IDirect3DDevice9** ppReturnedDeviceInterface);
+	UINT _stdcall GetAdapterModeCount (THIS_ UINT Adapter, D3DFORMAT Format);
+	HRESULT _stdcall EnumAdapterModes (THIS_ UINT Adapter, D3DFORMAT Format, UINT Mode, D3DDISPLAYMODE* pMode);
 	/*** IUnknown methods ***/
 	COM_METHOD(HRESULT, QueryInterface)(THIS_ REFIID riid, void** ppvObj) { /*TODO*/ return m_ptr->QueryInterface(riid, ppvObj); }
 	COM_METHOD(ULONG, AddRef)(THIS) { /*TODO*/ return m_ptr->AddRef(); }
@@ -21,8 +22,6 @@ public:
 	COM_METHOD(HRESULT, RegisterSoftwareDevice)(THIS_ void* pInitializeFunction) { /*TODO*/ return m_ptr->RegisterSoftwareDevice(pInitializeFunction); }
 	COM_METHOD(UINT, GetAdapterCount)(THIS) { /*TODO*/ return m_ptr->GetAdapterCount(); }
 	COM_METHOD(HRESULT, GetAdapterIdentifier)(THIS_ UINT Adapter, DWORD Flags, D3DADAPTER_IDENTIFIER9* pIdentifier) { /*TODO*/ return m_ptr->GetAdapterIdentifier(Adapter, Flags, pIdentifier); }
-	COM_METHOD(UINT, GetAdapterModeCount)(THIS_ UINT Adapter, D3DFORMAT Format) { /*TODO*/ return m_ptr->GetAdapterModeCount(Adapter, Format); }
-	COM_METHOD(HRESULT, EnumAdapterModes)(THIS_ UINT Adapter, D3DFORMAT Format, UINT Mode, D3DDISPLAYMODE* pMode) { /*TODO*/ return m_ptr->EnumAdapterModes(Adapter, Format, Mode, pMode); }
 	COM_METHOD(HRESULT, GetAdapterDisplayMode)(THIS_ UINT Adapter, D3DDISPLAYMODE* pMode) { /*TODO*/ return m_ptr->GetAdapterDisplayMode(Adapter, pMode); }
 	COM_METHOD(HRESULT, CheckDeviceType)(THIS_ UINT Adapter, D3DDEVTYPE DevType, D3DFORMAT AdapterFormat, D3DFORMAT BackBufferFormat, BOOL bWindowed) { /*TODO*/ return m_ptr->CheckDeviceType(Adapter, DevType, AdapterFormat, BackBufferFormat, bWindowed); }
 	COM_METHOD(HRESULT, CheckDeviceFormat)(THIS_ UINT Adapter, D3DDEVTYPE DeviceType, D3DFORMAT AdapterFormat, DWORD Usage, D3DRESOURCETYPE RType, D3DFORMAT CheckFormat) { /*TODO*/ return m_ptr->CheckDeviceFormat(Adapter, DeviceType, AdapterFormat, Usage, RType, CheckFormat); }

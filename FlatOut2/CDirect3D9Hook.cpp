@@ -70,3 +70,18 @@ HRESULT CDirect3D9Hook::CreateDevice(UINT Adapter, D3DDEVTYPE DeviceType, HWND h
 	*ppReturnedDeviceInterface = m_pdev;
 	return hr;
 }
+
+UINT CDirect3D9Hook::GetAdapterModeCount(UINT Adapter, D3DFORMAT Format)
+{
+	return 1;
+}
+
+HRESULT CDirect3D9Hook::EnumAdapterModes(UINT Adapter, D3DFORMAT Format, UINT Mode, D3DDISPLAYMODE * pMode)
+{
+	auto instSet = InstanceSettings::GetSettings()->GetLocalSettings();
+	pMode->Format = D3DFMT_X8R8G8B8;
+	pMode->Height = instSet.windowPos.bottom - instSet.windowPos.top;
+	pMode->Width = instSet.windowPos.right - instSet.windowPos.left;
+	pMode->RefreshRate = 60;
+	return D3D_OK;
+}
