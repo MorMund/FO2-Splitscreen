@@ -21,7 +21,7 @@
 3. In-game  
 **All In-game setup can only be performed by using the keyboard and clicking on the window of the instance you're trying to setup.**
  * Go to settings, controller options and select your controller. Afterwards you can change your button bindings. These settings are usually saved between sessions.
- * Now you can start a multiplayer session by selecting multiplayer -> LAN in the main menu and selecting Create game with the host instance (Marked by the text "Host" in the top left corner)
+ * Now you can start a multiplayer session by selecting multiplayer -> LAN in the main menu and selecting Create game with the host instance (The top left game.)
  * Afterwards you can join with all other players.  
 **Even though you are playing in LAN mode it is currently not possible to join a splitscreen session from another computer in your network!**  
 4. Advanced Settings  
