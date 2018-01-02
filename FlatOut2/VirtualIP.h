@@ -84,7 +84,7 @@ public:
 	virtual BOOL DWSAResetEvent(WSAEVENT hEvent) = 0;
 	virtual int GetHostName(char* name, int namelen);
 	virtual struct hostent* FAR GetHostByName(const char* name);
-	void WriteToLog(LPWSTR msg);
+	void WriteToLog(const wchar_t* msg);
 protected:
 	virtual int HandleVirtNetwork(SocketState** pprecvSock);
 protected:
@@ -95,7 +95,7 @@ protected:
 	int GetClientID();
 	u_short GetClientPhysHPort(int clientID);
 	int UpdateVirtualSocket(SOCKET s, DWORD cEvents, const WSAEVENT* lphEvents);
-	void WritePacketInfoToLog(LPWSTR tags, sockaddr_in from, sockaddr_in to, int len);
+	void WritePacketInfoToLog(const wchar_t* tags, sockaddr_in from, sockaddr_in to, int len);
 	bool CheckPacketIntegrity(char* buf, int buflen);
 private:
 	int PrepareEvent(SocketState* recvSocket, DWORD cEvents, const WSAEVENT * lphEvents);

@@ -37,6 +37,9 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoUpdate.cs" />
     <Compile Include="GamePad.cs" />
     <Compile Include="FlatOut2.cs" />
     <Compile Include="Program.cs" />
@@ -62,6 +66,13 @@
     </Compile>
     <Compile Include="Setup.Designer.cs">
       <DependentUpon>Setup.cs</DependentUpon>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="UpdateNotifier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+        <Compile Include="UpdateNotifier.Designer.cs">
+      <DependentUpon>UpdateNotifier.cs</DependentUpon>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -79,6 +90,10 @@
     <EmbeddedResource Include="Setup.resx">
       <DependentUpon>Setup.cs</DependentUpon>
     </EmbeddedResource>
+        <EmbeddedResource Include="UpdateNotifier.resx">
+      <DependentUpon>UpdateNotifier.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
