@@ -78,11 +78,11 @@
     <ClInclude Include="User32Detours.h">
       <Filter>Header Files\Detours</Filter>
     </ClInclude>
-    <ClInclude Include="DebugOutput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameDetours.h">
       <Filter>Header Files\Detours</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,11 +134,13 @@
     <ClCompile Include="User32Detours.cpp">
       <Filter>Source Files\Detours</Filter>
     </ClCompile>
-    <ClCompile Include="DebugOutput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameDetours.cpp">
       <Filter>Source Files\Detours</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FlatOut2.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
