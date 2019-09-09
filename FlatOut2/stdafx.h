@@ -30,9 +30,8 @@
 #include <unordered_map>
 #include <queue>
 #include <tchar.h>
+#include "Logging.h"
 #include "FlatOut2.h"
 #include "VirtualClient.h"
 #include "VirtualHost.h"
-
-
 

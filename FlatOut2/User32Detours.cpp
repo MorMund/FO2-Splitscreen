@@ -57,6 +57,9 @@ void setupScript()
 
 BOOL WINAPI MyPeekMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax, UINT wRemoveMsg)
 {
+	std::ostringstream test;
+	test << GetTickCount64();
+	Logging::getInstance().debug("TEST", test.str());
 	SET_InstanceSettings instSet = InstanceSettings::GetSettings()->GetLocalSettings();
 	BOOL ret = ((PeekMessageT)oPeekMessageA)(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
 	if (ret && WM_KEYDOWN == lpMsg->message && VK_F2 == lpMsg->wParam)
