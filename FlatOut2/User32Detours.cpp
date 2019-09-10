@@ -30,7 +30,8 @@ void WinDetour()
 	GameDetour();
 	if (DetourTransactionCommit() != NO_ERROR)
 	{
-		std::cout << "Detour Error!" << std::endl;
+		Logging::getInstance().error("DETOURS", std::string("Detour Error!"));
+		throw std::exception("Detour Error!");
 	}
 }
 
@@ -57,15 +58,12 @@ void setupScript()
 
 BOOL WINAPI MyPeekMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgFilterMax, UINT wRemoveMsg)
 {
-	std::ostringstream test;
-	test << GetTickCount64();
-	Logging::getInstance().debug("TEST", test.str());
 	SET_InstanceSettings instSet = InstanceSettings::GetSettings()->GetLocalSettings();
 	BOOL ret = ((PeekMessageT)oPeekMessageA)(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg);
 	if (ret && WM_KEYDOWN == lpMsg->message && VK_F2 == lpMsg->wParam)
 	{
 		markKeyDown = TRUE;
-		virtIP->WriteToLog(L"MARK\n");
+		Logging::getInstance().info("SCRIPTING", std::string("MARK"));
 	}
 	else
 	{
@@ -99,7 +97,9 @@ BOOL WINAPI MyPeekMessage(LPMSG lpMsg, HWND hWnd, UINT wMsgFilterMin, UINT wMsgF
 					break;
 				case SR_ERROR:
 				default:
-					std::cout << "Unknown script error : " << r << std::endl;
+					std::ostringstream msg;
+					msg << "Unknown script error : " << r;
+					Logging::getInstance().error("SCRIPTING", msg.str());
 					runScript = false;
 					break;
 				}
@@ -207,11 +207,13 @@ HWND WINAPI MyCreateWindowExA(
 		AttachConsole(GetCurrentProcessId());
 		FILE* con;
 		freopen_s(&con, "CON", "w", stdout);
-		std::cout << "Attached console for instance : " << InstanceSettings::GetSettings()->GetInstanceID() << " process id : " << GetCurrentProcessId() << std::endl;
+		std::ostringstream msg;
+		msg << "Attached console for instance : " << InstanceSettings::GetSettings()->GetInstanceID() << " process id : " << GetCurrentProcessId();
+		Logging::getInstance().debug("DEBUGGER", msg.str());
 	}
 	if (FO2_AllowAttach2)
 	{
-		std::cout << "Waiting for 5 seconds." << std::endl;
+		Logging::getInstance().debug("DEBUGGER", std::string("Waiting for 5 seconds."));
 		Sleep(5000);
 	}
 	WinDetour();

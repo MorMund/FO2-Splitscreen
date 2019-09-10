@@ -55,12 +55,16 @@ InstanceSettings* InstanceSettings::InitSettings(int instanceID)
 		HANDLE wait = OpenEvent(EVENT_ALL_ACCESS, false, INSTANCESETTINGS_WAITNAME);
 		if (NULL == wait)
 		{
-			std::cout << "Could not open launcher wait handle! Error : " << GetLastError() << std::endl;
+			std::ostringstream msg;
+			msg << "Could not open launcher wait handle! Error : " << GetLastError();
+			Logging::getInstance().error("SETTINGS", msg.str());
 		}
 
 		if (!SetEvent(wait))
 		{
-			std::cout << "Could not set launcher wait event! Error : " << GetLastError() << std::endl;
+			std::ostringstream msg;
+			msg << "Could not set launcher wait event! Error : " << GetLastError();
+			Logging::getInstance().error("SETTINGS", msg.str());
 		}
 
 		CloseHandle(wait);

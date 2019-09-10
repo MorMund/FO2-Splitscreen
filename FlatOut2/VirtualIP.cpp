@@ -6,6 +6,8 @@ char hostNameQuery[256];
 char* hostAddrQueryList[2];
 char hostAddrQuery[sizeof(in_addr)];
 
+const char* VirtualIP::tag = "NETWORK";
+
 VirtualIP::VirtualIP(BOOL isServer, PVOID* oCalls, int callCount)
 {
 	m_sharedSettings = InstanceSettings::GetSettings();
@@ -24,27 +26,10 @@ VirtualIP::VirtualIP(BOOL isServer, PVOID* oCalls, int callCount)
 	m_reset = (WSAEReset)oCalls[oCall_resetEvent];
 	m_hostName = (hostName)oCalls[oCall_hostName];
 	m_hostByName = (hostbyname)oCalls[oCall_hostByName];
-#if _DEBUG
-	m_netLogLock = CreateMutex(NULL, FALSE, VirtualLog_MutexName);
-	if (m_netLogLock == NULL)
-	{
-		std::cout << "Couldn't create network log mutex. Error : " << GetLastError() << std::endl;
-		throw new std::exception("Couldn't create network log mutex.");
-	}
-
-	m_netLog = CreateFile(VirtualLog_FileName, GENERIC_WRITE, FILE_SHARE_WRITE | FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	if (m_netLog == INVALID_HANDLE_VALUE)
-	{
-		std::cout << "Couldn't create network log. Error : " << GetLastError() << std::endl;
-		throw new std::exception("Couldn't create network log.");
-	}
-#endif //_DEBUG
 }
 
 VirtualIP::~VirtualIP()
 {
-	CloseHandle(m_netLog);
-	CloseHandle(m_netLogLock);
 }
 
 void VirtualIP::SetClientVirtualPort(u_short portH)
@@ -73,11 +58,9 @@ BOOL VirtualIP::Init()
 
 int VirtualIP::RegisterSocket(SOCKET s, const sockaddr * addr)
 {
-	std::cout << "Register socket " << s << std::endl;
 	int c = m_socketStates.count(s);
 	if (c)
 	{
-		std::cout << "Socket " << s << "was registered twice!" << std::endl;
 		return -1;
 	}
 	SocketState ss;
@@ -141,7 +124,9 @@ DWORD VirtualIP::DWaitForEvents(DWORD cEvents, const WSAEVENT * lphEvents, BOOL 
 			int virtNet = HandleVirtNetwork(&state);
 			if (virtNet != VirtHandleNet_Buffered)
 			{
-				std::cout << "Virtual network receive error! " << WSAGetLastError() << std::endl;
+				std::ostringstream msg;
+				msg << "Virtual network receive error! " << WSAGetLastError();
+				Logging::getInstance().error(tag, msg.str());
 			}
 
 			int eventIndex = PrepareEvent(state, cEvents, lphEvents);
@@ -190,7 +175,7 @@ DWORD VirtualIP::DGetAdaptInfo(PIP_ADAPTER_INFO pAdapterInfo, PULONG pOutBufLen)
 	}
 	else if (err == ERROR_BUFFER_OVERFLOW)
 	{
-		std::cout << "GetAdapterInfo virtual client buffer overflow not implemented!" << std::endl;
+		Logging::getInstance().error(tag, std::string("GetAdapterInfo virtual client buffer overflow not implemented!"));
 		return ERROR_INVALID_DATA;
 	}
 	else
@@ -210,7 +195,9 @@ int VirtualIP::HandleVirtNetwork(SocketState** pprecvSock)
 	BOOL r = m_overlapped(m_virtSocket, &virtSS.virtOverlapped, &transfer, false, &flags);
 	if (!r)
 	{
-		std::cout << "GetOverlappedResult of the virtual socket failed with : " << WSAGetLastError() << std::endl;
+		std::ostringstream msg;
+		msg << "GetOverlappedResult of the virtual socket failed with : " << WSAGetLastError();
+		Logging::getInstance().error(tag, msg.str());
 		return VirtHandleNet_Error;
 	}
 
@@ -223,7 +210,7 @@ int VirtualIP::HandleVirtNetwork(SocketState** pprecvSock)
 			*pprecvSock = sockState;
 			if (sockState->virtRecvBuffers.size() >= VirtualBuffer_MaxQueue)
 			{
-				std::cout << "Socket " << sockState->s << " virtual buffer queue is full!" << std::endl;
+				Logging::getInstance().error(tag, std::string("Socket virtual buffer queue is full!"));
 				return VirtHandleNet_Error;
 			}
 
@@ -255,7 +242,9 @@ int VirtualIP::UpdateVirtualSocket(SOCKET s, DWORD cEvents, const WSAEVENT* lphE
 			DWORD wait = m_waitMult(1, &m_virtSockState.overlappedRecvEvent, FALSE, 0, FALSE);
 			if (WSA_WAIT_FAILED == wait)
 			{
-				std::cout << "An unexpected error occurred while polling the virtual socket. Error : " << WSAGetLastError();
+				std::ostringstream msg;
+				msg << "An unexpected error occurred while polling the virtual socket. Error : " << WSAGetLastError();
+				Logging::getInstance().error(tag, msg.str());
 				throw new std::exception("An unexpected error occurred while polling the virtual socket.");
 			}
 			else if (WSA_WAIT_EVENT_0 == wait)
@@ -296,7 +285,9 @@ int VirtualIP::UpdateVirtualSocket(SOCKET s, DWORD cEvents, const WSAEVENT* lphE
 				}
 				else
 				{
-					std::cout << "Virtual network receive error! " << WSAGetLastError() << std::endl;
+					std::ostringstream msg;
+					msg << "Virtual network receive error! " << WSAGetLastError();
+					Logging::getInstance().error(tag, msg.str());
 					return  VirtHandleNet_Error;
 				}
 			}
@@ -309,7 +300,7 @@ int VirtualIP::UpdateVirtualSocket(SOCKET s, DWORD cEvents, const WSAEVENT* lphE
 
 		if (!newPacket)
 		{
-			std::cout << "Unexpected state in virtual socket update!";
+			Logging::getInstance().error(tag, std::string("Unexpected state in virtual socket update!"));
 			throw new std::exception("Unexpected state in virtual socket update!");
 		}
 
@@ -317,7 +308,9 @@ int VirtualIP::UpdateVirtualSocket(SOCKET s, DWORD cEvents, const WSAEVENT* lphE
 		int i = HandleVirtNetwork(&state);
 		if (i != VirtHandleNet_Buffered)
 		{
-			std::cout << "Virtual network Error : " << i << std::endl;
+			std::ostringstream msg;
+			msg << "Virtual network Error : " << i;
+			Logging::getInstance().error(tag, msg.str());
 		}
 		else
 		{
@@ -365,66 +358,25 @@ hostent * VirtualIP::GetHostByName(const char * name)
 	}
 	else
 	{
-		std::cout << "Looking up non virtual host name : " << name << std::endl;
+		std::ostringstream msg;
+		msg << "Looking up non virtual host name : " << name;
+		Logging::getInstance().warn(tag, msg.str());
 		return m_hostByName(name);
 	}
 }
 
-void VirtualIP::WriteToLog(const wchar_t* msg)
+void VirtualIP::WritePacketInfoToLog(const char* tags, sockaddr_in from, sockaddr_in to, int len)
 {
-#if _DEBUG
-	DWORD err = WaitForSingleObject(m_netLogLock, 10);
-	switch (err)
-	{
-	case WAIT_OBJECT_0:
-		break;
-	case WAIT_TIMEOUT:
-		std::cout << "Waiting for net log write lock timed out!" << std::endl;
-		return;
-	case WAIT_FAILED:
-	default:
-		std::cout << "Waiting for net log write lock failed! Error : " << GetLastError() << std::endl;
-		return;
-	}
-
-	int len = lstrlenW(msg);
-	DWORD written;
-	if (INVALID_SET_FILE_POINTER == SetFilePointer(m_netLog, 0, NULL, FILE_END))
-	{
-		std::cout << "Setting file pointer failed! Error : " << GetLastError() << std::endl;
-	}
-
-	if (!WriteFile(m_netLog, msg, len * sizeof(WCHAR), &written, NULL))
-	{
-		std::cout << "Writing to log file failed! Error : " << GetLastError() << std::endl;
-	}
-
-	if (!ReleaseMutex(m_netLogLock))
-	{
-		std::cout << "Releasing mutex failed! Error : " << GetLastError() << std::endl;
-	}
-#endif //_DEBUG
-}
-
-void VirtualIP::WritePacketInfoToLog(const wchar_t* tags, sockaddr_in from, sockaddr_in to, int len)
-{
-	WCHAR buffer[2048];
-	WCHAR addrFrom[16];
-	WCHAR addrTo[16];
-	InetNtopW(AF_INET, &from.sin_addr, addrFrom, sizeof(addrFrom));
-	InetNtopW(AF_INET, &to.sin_addr, addrTo, sizeof(addrTo));
+	std::ostringstream msg;
+	char addrFrom[16];
+	char addrTo[16];
+	InetNtopA(AF_INET, &from.sin_addr, addrFrom, sizeof(addrFrom));
+	InetNtopA(AF_INET, &to.sin_addr, addrTo, sizeof(addrTo));
 	SYSTEMTIME sysTime;
 	GetSystemTime(&sysTime);
-	if (S_OK !=
-		StringCbPrintf(
-			buffer, sizeof(buffer),
-			L"%d:%d:%d.%d (%d)[%ls] %ls:%d -> %ls:%d %d\n",
-			sysTime.wHour, sysTime.wMinute, sysTime.wSecond, sysTime.wMilliseconds,
-			m_sharedSettings->GetInstanceID(), tags, addrFrom, ntohs(from.sin_port), addrTo, ntohs(to.sin_port), len))
-	{
-		std::cout << "Packet string format error!" << std::endl;
-	}
-	WriteToLog(buffer);
+	msg << sysTime.wHour << ':' << sysTime.wMinute << ':' << sysTime.wSecond << '.' << sysTime.wMilliseconds
+		<< " [" << tags << "] " << addrFrom << ':' << ntohs(from.sin_port) << "->" << addrTo << ':' << ntohs(to.sin_port) << ' ' << len << " bytes";
+	Logging::getInstance().debug(tag, msg.str());
 }
 
 bool VirtualIP::CheckPacketIntegrity(char * buf, int buflen)
@@ -432,13 +384,13 @@ bool VirtualIP::CheckPacketIntegrity(char * buf, int buflen)
 	bool failed = FALSE;
 	if (*(WORD*)buf != (buflen - 2))
 	{
-		std::cout << "Packet integrity check failed : Header packet length info does not match packet length!" << std::endl;
+		Logging::getInstance().error(tag, std::string("Packet integrity check failed : Header packet length info does not match packet length!"));
 		failed = TRUE;
 	}
 
 	if (strncmp(buf + FO2Packet_MagicOffset, FO2Packet_Magic, sizeof(FO2Packet_Magic) - 1) != 0)
 	{
-		std::cout << "Packet integrity check failed : Header invalid magic!" << std::endl;
+		Logging::getInstance().error(tag, std::string("Packet integrity check failed : Header invalid magic!"));
 		failed = TRUE;
 	}
 

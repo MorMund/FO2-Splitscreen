@@ -125,7 +125,7 @@ DWORD TestScriptRunner::RunOnce()
 			else if (0 == _strnicmp("PRINT", str.c_str(), 5))
 			{
 				std::string exp = str.substr(6, str.npos);
-				std::cout << "[SCRIPT]" << exp << std::endl;
+				Logging::getInstance().debug("SCRIPT", exp);
 			}
 		}
 	}

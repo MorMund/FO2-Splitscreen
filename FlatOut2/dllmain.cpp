@@ -15,7 +15,7 @@ void earlyDetour()
 	DIDetour();
 	if (DetourTransactionCommit() != NO_ERROR)
 	{
-		std::cout << "Detour Error!" << std::endl;
+		Logging::getInstance().error("DETOURS", std::string("Detour Error!"));
 		throw std::exception("Detour Error!");
 	}
 }
@@ -106,7 +106,9 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 						instanceID = _ttoi(szArglist[++i]);
 						break;
 					default:
-						std::cout << "Unknown command \"" << cmd << "\".";
+						std::ostringstream msg;
+						msg << "Unknown launch arg \"" << cmd << "\".";
+						Logging::getInstance().error("START", msg.str());
 						break;
 					}
 				}

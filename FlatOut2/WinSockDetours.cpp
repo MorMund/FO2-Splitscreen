@@ -57,9 +57,11 @@ DWORD WSAAPI MyWaitForMulti(DWORD cEvents, const WSAEVENT *lphEvents, BOOL fWait
 	QueryPerformanceCounter(&after);
 	if (((double)(after.QuadPart - before.QuadPart) / countFreq.QuadPart) > dwTimeout && dwTimeout > 0)
 	{
-		std::cout << "WaitForMultipleEvents took longer than dwTimeout : "
+		std::ostringstream msg;
+		msg << "WaitForMultipleEvents took longer than dwTimeout : "
 			<< std::setprecision(2) << ((double)(after.QuadPart - before.QuadPart) / countFreq.QuadPart) * 1000
-			<< " ms" << std::endl;
+			<< " ms";
+		Logging::getInstance().error("NETWORK", msg.str());
 	}
 	return r;
 }
@@ -71,7 +73,7 @@ BOOL WSAAPI MyResetEvent(WSAEVENT hEvent)
 
 int WSAAPI MyCleanup()
 {
-	std::cout << "Clean up" << std::endl;
+	Logging::getInstance().error("NETWORK", std::string("WinSock clean up"));
 	return ((WSAClean)oWSAClean)();
 }
 
@@ -99,7 +101,7 @@ int WSAAPI MyWSAStart(WORD wVersionRequested, LPWSADATA lpWSAData)
 			VirtualHost* vHost = new VirtualHost(InstanceSettings::GetSettings()->GetInstanceCount(), calls, 8);
 			if (!vHost->Init())
 			{
-				std::cout << "Virtual network initialization failure!" << std::endl;
+				Logging::getInstance().error("NETWORK", std::string("Virtual network host initialization failure!"));
 			}
 			virtIP = (VirtualIP*)vHost;
 		}
@@ -109,7 +111,7 @@ int WSAAPI MyWSAStart(WORD wVersionRequested, LPWSADATA lpWSAData)
 			virtIP = (VirtualIP*)virtCl;
 			if (!virtCl->Init())
 			{
-				std::cout << "Virtual network init failure!" << std::endl;
+				Logging::getInstance().error("NETWORK", std::string("Virtual network client initialization failure!"));
 			}
 		}
 	}

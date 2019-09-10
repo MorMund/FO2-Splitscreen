@@ -21,14 +21,18 @@ BOOL VirtualClient::Init()
 	client.sin_addr = in4addr_loopback;
 	if (m_bind(m_virtSocket, (SOCKADDR *)&client, sizeof(client)) == SOCKET_ERROR)
 	{
-		std::cout << "Virtual network client socket bind error : " << WSAGetLastError() << std::endl;
+		std::ostringstream msg;
+		msg << "Virtual network client socket bind error : " << WSAGetLastError();
+		Logging::getInstance().error(tag, msg.str());
 		return FALSE;
 	}
 
 	int namelen = sizeof(client);
 	if (getsockname(m_virtSocket, (SOCKADDR*)&client, &namelen) == SOCKET_ERROR)
 	{
-		std::cout << "Virtual network client socket address retrieval error : " << WSAGetLastError() << std::endl;
+		std::ostringstream msg;
+		msg << "Virtual network client socket address retrieval error : " << WSAGetLastError();
+		Logging::getInstance().error(tag, msg.str());
 		return FALSE;
 	}
 
@@ -56,12 +60,14 @@ int VirtualClient::RegisterSocket(SOCKET s, const sockaddr* addr)
 			DWORD trans, flags;
 			if (!m_overlapped(m_virtSocket, &over, &trans, FALSE, &flags))
 			{
-				std::cout << "Unexpected error while flushing virtual socket (GetOverlappedResult)! Error : " << WSAGetLastError() << std::endl;
+				std::ostringstream msg;
+				msg << "Unexpected error while flushing virtual socket (GetOverlappedResult)! Error : " << WSAGetLastError();
+				Logging::getInstance().error(tag, msg.str());
 				break;
 			}
 			else
 			{
-				std::cout << "Flushed virtual packet" << std::endl;
+				Logging::getInstance().debug(tag, std::string("Flushed virtual packet"));
 				continue;
 			}
 		}
@@ -72,7 +78,9 @@ int VirtualClient::RegisterSocket(SOCKET s, const sockaddr* addr)
 			{
 				if (!CancelIo((HANDLE)m_virtSocket))
 				{
-					std::cout << "Could not cancel peek receive! Error : " << GetLastError() << std::endl;
+					std::ostringstream msg;
+					msg << "Could not cancel peek receive! Error : " << GetLastError();
+					Logging::getInstance().error(tag, msg.str());
 				}
 
 				break;
@@ -82,24 +90,30 @@ int VirtualClient::RegisterSocket(SOCKET s, const sockaddr* addr)
 				DWORD trans, flags;
 				if (!m_overlapped(m_virtSocket, &over, &trans, FALSE, &flags))
 				{
-					std::cout << "Unexpected error while flushing virtual socket (GetOverlappedResult)! Error : " << WSAGetLastError() << std::endl;
+					std::ostringstream msg;
+					msg << "Unexpected error while flushing virtual socket (GetOverlappedResult)! Error : " << WSAGetLastError();
+					Logging::getInstance().error(tag, msg.str());
 					break;
 				}
 				else
 				{
-					std::cout << "Flushed virtual packet" << std::endl;
+					Logging::getInstance().debug(tag, std::string("Flushed virtual packet"));
 					continue;
 				}
 			}
 			else
 			{
-				std::cout << "Unexpected error while flushing virtual socket (WaitForMultipleEvents)! Error : " << WSAGetLastError() << std::endl;
+				std::ostringstream msg;
+				msg << "Unexpected error while flushing virtual socket (WaitForMultipleEvents)! Error : " << WSAGetLastError();
+				Logging::getInstance().error(tag, msg.str());
 				break;
 			}
 		}
 		else
 		{
-			std::cout << "Unexpected error while flushing virtual socket (RecvFrom)! Error : " << WSAGetLastError() << std::endl;
+			std::ostringstream msg;
+			msg << "Unexpected error while flushing virtual socket (RecvFrom)! Error : " << WSAGetLastError();
+			Logging::getInstance().error(tag, msg.str());
 			break;
 		}
 	}
@@ -122,7 +136,7 @@ int VirtualClient::HandleVirtNetwork(SocketState** pprecvSock)
 	int ret = VirtualIP::HandleVirtNetwork(pprecvSock);
 	if (ret == VirtHandleNet_UnknownPort)
 	{
-		std::cout << "Virtual server sending to unknown port!" << std::endl;
+		Logging::getInstance().error(tag, std::string("Virtual server sending to unknown port!"));
 	}
 
 	return ret;
@@ -136,7 +150,9 @@ int VirtualClient::DSendTo(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, LP
 	{
 		CHAR addr[16];
 		InetNtopA(AF_INET, &((sockaddr_in*)lpTo)->sin_addr, addr, sizeof(addr));
-		std::cout << "Sending to unknown address!" << addr << std::endl;
+		std::ostringstream msg;
+		msg << "Sending to unknown address:" << addr;
+		Logging::getInstance().error(tag, msg.str());
 	}
 
 	header.virtIP = ((sockaddr_in*)lpTo)->sin_addr;
@@ -160,12 +176,14 @@ int VirtualClient::DSendTo(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, LP
 	toPhysAddr.sin_family = AF_INET;
 	toPhysAddr.sin_addr = in4addr_loopback;
 	toPhysAddr.sin_port = htons(GetClientPhysHPort(toClientID));
-	WritePacketInfoToLog(L"Send,Virt,Imme", sockaddr_in{ AF_INET,state->port,m_localAddr }, *((sockaddr_in*)lpTo), lpBuffers->len);
+	WritePacketInfoToLog("Send,Virt,Imme", sockaddr_in{ AF_INET,state->port,m_localAddr }, *((sockaddr_in*)lpTo), lpBuffers->len);
 	int r = m_sendTo(m_virtSocket, &state->virtSendBuffers, 1, &numBytesSend, dwFlags, (sockaddr*)&toPhysAddr, sizeof(sockaddr_in), lpOverlapped, NULL);
 	int err = WSAGetLastError();
 	if (r)
 	{
-		std::cout << "Sending packet failed with " << r << " and WSALastError " << WSAGetLastError() << std::endl;
+		std::ostringstream msg;
+		msg << "Sending packet failed with " << r << " and WSALastError " << WSAGetLastError();
+		Logging::getInstance().error(tag, msg.str());
 	}
 	return r;
 }
@@ -215,16 +233,16 @@ BOOL VirtualClient::DGetOverlappedResult(SOCKET s, LPWSAOVERLAPPED lpOverlapped,
 	}
 	else if (VirtRecv_StateVirtBuffered >= state->virtRecvState)
 	{
-		std::cout << "Unexpected virtual receive state!" << std::endl;
+		Logging::getInstance().error(tag, std::string("Unexpected virtual receive state!"));
 		ret = FALSE;
 	}
 	else
 	{
-		std::cout << "Unexpected virtual receive state! Virtual client can not receive physical packets." << std::endl;
+		Logging::getInstance().error(tag, std::string("Unexpected virtual receive state! Virtual client can not receive physical packets."));
 		ret = FALSE;
 	}
 
-	WritePacketInfoToLog(L"Recv,Virt,Asyn", *((sockaddr_in*)state->lpRecvFrom), sockaddr_in{ AF_INET,state->port,m_localAddr }, *lpcbTransfer);
+	WritePacketInfoToLog("Recv,Virt,Asyn", *((sockaddr_in*)state->lpRecvFrom), sockaddr_in{ AF_INET,state->port,m_localAddr }, *lpcbTransfer);
 	return ret;
 }
 

@@ -24,7 +24,9 @@ BOOL VirtualHost::Init()
 	server.sin_addr = in4addr_loopback;
 	if (m_bind(m_virtSocket, (SOCKADDR *)&server, sizeof(server)) == SOCKET_ERROR)
 	{
-		std::cout << "Virtual network server socket bind error : " << WSAGetLastError() << std::endl;
+		std::ostringstream msg;
+		msg << "Virtual network server socket bind error : " << WSAGetLastError();
+		Logging::getInstance().error(tag, msg.str());
 		return FALSE;
 	}
 
@@ -44,7 +46,9 @@ int VirtualHost::RegisterSocket(SOCKET s, const sockaddr* addr)
 	}
 	else
 	{
-		std::cout << "Register socket failed : " << WSAGetLastError() << std::endl;
+		std::ostringstream msg;
+		msg << "Register socket failed : " << WSAGetLastError();
+		Logging::getInstance().error(tag, msg.str());
 	}
 
 	return r;
@@ -61,7 +65,7 @@ int VirtualHost::HandleVirtNetwork(SocketState** pprecvSock)
 	int ret = VirtualIP::HandleVirtNetwork(pprecvSock);
 	if (ret == VirtHandleNet_UnknownPort)
 	{
-		std::cout << "Virtual client sending to unknown port!" << std::endl;
+		Logging::getInstance().error(tag, std::string("Virtual client sending to unknown port!"));
 	}
 
 	return ret;
@@ -73,7 +77,7 @@ int VirtualHost::DSendTo(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, LPDW
 	// Decides between a broadcast, sending to a virtual client and finally sending to a physical client
 	if (in4addr_broadcast.s_addr == to.sin_addr.s_addr) // Is broadcast?
 	{
-		WritePacketInfoToLog(L"Send,BrCa,Imme", sockaddr_in{ AF_INET,m_socketStates[s]->port,m_localAddr }, to, lpBuffers->len);
+		WritePacketInfoToLog("Send,BrCa,Imme", sockaddr_in{ AF_INET,m_socketStates[s]->port,m_localAddr }, to, lpBuffers->len);
 		BroadcastVirtual(lpBuffers->buf, lpBuffers->len, to.sin_port);
 	}
 	else
@@ -99,17 +103,19 @@ int VirtualHost::DSendTo(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, LPDW
 			WSABUF buf;
 			buf.buf = virtBuffer;
 			buf.len = sizeof(virtHead) + lpBuffers->len;
-			WritePacketInfoToLog(L"Send,Virt,Imme", sockaddr_in{ AF_INET,m_socketStates[s]->port,m_localAddr }, to, lpBuffers->len);
+			WritePacketInfoToLog("Send,Virt,Imme", sockaddr_in{ AF_INET,m_socketStates[s]->port,m_localAddr }, to, lpBuffers->len);
 			DWORD r = m_sendTo(m_virtSocket, &buf, 1, &numSent, NULL, (sockaddr*)&virtClAddr, sizeof(virtClAddr), NULL, NULL);
 			if (r != 0)
 			{
-				std::cout << "Virtual send to client " << cl << "failed with " << r << " and WSA error " << WSAGetLastError() << "!" << std::endl;
+				std::ostringstream msg;
+				msg << "Virtual send to client " << cl << "failed with " << r << " and WSA error " << WSAGetLastError() << "!";
+				Logging::getInstance().error(tag, msg.str());
 			}
 			return r;
 		}
 	}
 
-	WritePacketInfoToLog(L"Send,Phys,Imme", sockaddr_in{ AF_INET,m_socketStates[s]->port,in4addr_loopback }, to, lpBuffers->len);
+	WritePacketInfoToLog("Send,Phys,Imme", sockaddr_in{ AF_INET,m_socketStates[s]->port,in4addr_loopback }, to, lpBuffers->len);
 	return m_sendTo(s, lpBuffers, dwBufferCount, lpNumberOfBytesSent, dwFlags, lpTo, iToLen, lpOverlapped, NULL);
 }
 
@@ -136,7 +142,7 @@ int VirtualHost::DRecvFrom(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, LP
 		{
 			CompletePhysicalReceive(state);
 			CheckPacketIntegrity(state->lpRecvBuffers->buf, *lpNumberOfBytesRecvd);
-			WritePacketInfoToLog(L"Recv,Phys,Imme", *(sockaddr_in*)lpFrom, sockaddr_in{ AF_INET,state->port,m_localAddr }, *lpNumberOfBytesRecvd);
+			WritePacketInfoToLog("Recv,Phys,Imme", *(sockaddr_in*)lpFrom, sockaddr_in{ AF_INET,state->port,m_localAddr }, *lpNumberOfBytesRecvd);
 			return 0;
 		}
 		else
@@ -144,7 +150,9 @@ int VirtualHost::DRecvFrom(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, LP
 			int err = WSAGetLastError();
 			if (err != WSA_IO_PENDING)
 			{
-				std::cout << "ReceiveFrom failed with Error : " << err << std::endl;
+				std::ostringstream msg;
+				msg << "ReceiveFrom failed with Error : " << err;
+				Logging::getInstance().error(tag, msg.str());
 			}
 
 			state->isReceiving = TRUE;
@@ -156,7 +164,7 @@ int VirtualHost::DRecvFrom(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, LP
 	if (0 < state->virtRecvBuffers.size() || WSA_WAIT_EVENT_0 == UpdateVirtualSocket(s, 0, NULL))
 	{
 		ImmediateVirtualRecv(state, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFrom);
-		WritePacketInfoToLog(L"Recv,Virt,Imme", *(sockaddr_in*)lpFrom, sockaddr_in{ AF_INET,state->port,m_localAddr }, *lpNumberOfBytesRecvd);
+		WritePacketInfoToLog("Recv,Virt,Imme", *(sockaddr_in*)lpFrom, sockaddr_in{ AF_INET,state->port,m_localAddr }, *lpNumberOfBytesRecvd);
 		return 0;
 	}
 
@@ -193,7 +201,7 @@ BOOL VirtualHost::DGetOverlappedResult(SOCKET s, LPWSAOVERLAPPED lpOverlapped, L
 			buf.buffer + sizeof(VirtIPHeader), sizeof(buf.buffer) - sizeof(VirtIPHeader));
 		*lpcbTransfer = buf.numBytesRecvd - sizeof(VirtIPHeader);
 		CheckPacketIntegrity(state->lpRecvBuffers->buf, *lpcbTransfer);
-		WritePacketInfoToLog(L"Recv,Virt,Asyn",
+		WritePacketInfoToLog("Recv,Virt,Asyn",
 			*((sockaddr_in*)state->lpRecvFrom),
 			sockaddr_in{ AF_INET,virtHead.virtPort,m_localAddr },
 			*lpcbTransfer);
@@ -201,7 +209,7 @@ BOOL VirtualHost::DGetOverlappedResult(SOCKET s, LPWSAOVERLAPPED lpOverlapped, L
 	}
 	else if (state->virtRecvState >= VirtRecv_StateVirtBuffered)
 	{
-		std::cout << "Unexpected virtual receive state!" << std::endl;
+		Logging::getInstance().error(tag, std::string("Unexpected virtual receive state!"));
 		ret = FALSE;
 	}
 	else // Physical receive result
@@ -212,14 +220,16 @@ BOOL VirtualHost::DGetOverlappedResult(SOCKET s, LPWSAOVERLAPPED lpOverlapped, L
 		{
 			CompletePhysicalReceive(state);
 			CheckPacketIntegrity(state->lpRecvBuffers->buf, *lpcbTransfer);
-			WritePacketInfoToLog(L"Recv,Phys,Asyn",
+			WritePacketInfoToLog("Recv,Phys,Asyn",
 				*((sockaddr_in*)state->lpRecvFrom),
 				sockaddr_in{ AF_INET, ((sockaddr_in*)state->lpRecvFrom)->sin_port,m_localAddr },
 				*lpcbTransfer);
 		}
 		else
 		{
-			std::cout << "Overlapped physical receive failed with :" << WSAGetLastError() << std::endl;
+			std::ostringstream msg;
+			msg << "Overlapped physical receive failed with :" << WSAGetLastError();
+			Logging::getInstance().error(tag, msg.str());
 		}
 	}
 
@@ -279,7 +289,9 @@ void VirtualHost::BroadcastVirtual(char * buffer, int buflen, short nport)
 		DWORD r = m_sendTo(m_virtSocket, &buf, 1, &numSent, NULL, (sockaddr*)&virtClAddr, sizeof(virtClAddr), NULL, NULL);
 		if (r != 0)
 		{
-			std::cout << "Virtual broadcast to client " << i << "failed with " << r << " and WSA error " << WSAGetLastError() << "!" << std::endl;
+			std::ostringstream msg;
+			msg << "Virtual broadcast to client " << i << "failed with " << r << " and WSA error " << WSAGetLastError() << "!";
+			Logging::getInstance().error(tag, msg.str());
 		}
 	}
 }
