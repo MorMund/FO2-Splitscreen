@@ -2,6 +2,10 @@
 #include "Logging.h"
 
 Logging::Logging() {
+	if (InstanceSettings::GetSettings()->GetLogFileVerbosity() == Off) {
+		return;
+	}
+
 	DWORD waitResult;
 	m_createMappingsMutex = CreateMutex(NULL, FALSE, LOGGING_FILECREATEMUTEX);
 	m_bufferMutex = CreateMutex(NULL, FALSE, LOGGING_WRITEMUTEX);
@@ -42,7 +46,13 @@ void Logging::log(Logging::Level level, const char* tag, std::string msg) {
 	std::ostringstream formattedMsg;
 	auto settings = InstanceSettings::GetSettings();
 	formattedMsg << '[' << tag << "|" << settings->GetInstanceID() << "] " << msg << std::endl;
-	writeBuffer(formattedMsg.str());
+	if (InstanceSettings::GetSettings()->GetLogFileVerbosity() >= level) {
+		writeBuffer(formattedMsg.str());
+	}
+
+	if (InstanceSettings::GetSettings()->GetConsoleVerbosity() >= level) {
+		std::cout << formattedMsg.str();
+	}
 }
 
 void Logging::writeBuffer(std::string formattedMsg) {

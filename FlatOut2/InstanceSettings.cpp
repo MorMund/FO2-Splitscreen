@@ -48,7 +48,6 @@ InstanceSettings* InstanceSettings::InitSettings(int instanceID)
 	instSet->instanceID = instanceID;
 	instSet->procID = GetCurrentProcessId();
 	instSet->instanceController = m_instanceSettings->m_settings->globals.controller[instanceID];
-	instSet->attachConsole = m_instanceSettings->m_settings->globals.attachConsole[instanceID];
 	instSet->windowPos = m_instanceSettings->m_settings->globals.windowPos[instanceID];
 	if (m_instanceSettings->m_instanceID == INSTANCESETTINGS_HOSTINST)
 	{

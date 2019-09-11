@@ -24,6 +24,7 @@
         private const int SharedSettingsSizeCount = 3;
         private const string SharedSettingsName = @"Local\FO2_SS_Shared";
         private const string LauncherWaitHandleName = @"Local\FO2_SS_Wait";
+        public enum LogLevel : int { Disabled, Error, Warning, Info, Debug, Trace }
         #endregion
 
         #region Fields
@@ -31,9 +32,6 @@
         private int instanceCount;
         private RECT[] windowPos;
         private Guid[] controllers;
-        private bool[] attachConsole;
-        private ushort virtHostPort = 23758;
-        private byte virtAddressOffset = 1;
         private IPAddress virtAddressRange;
         private RECT gameResolution;
         private MemoryMappedFile settingsMem;
@@ -53,7 +51,6 @@
             InstanceCount = instanceCount;
             windowPos = new RECT[instanceCount];
             ResetControllerSettings();
-            attachConsole = new bool[instanceCount];
             virtAddressRange = IPAddress.Parse(DefaultVirtualNetworkAddress);
             isInitialized = true;
         }
@@ -100,57 +97,26 @@
         /// Gets or sets the port used by the host instance to communicated with its virtual clients.
         /// </summary>
         [XmlElement(ElementName = "VirtualHostPort")]
-        public ushort VirtualHostPort
-        {
-            get
-            {
-                return virtHostPort;
-            }
-
-            set
-            {
-                virtHostPort = value;
-            }
-        }
+        public ushort VirtualHostPort { get; set; } = 23758;
 
         /// <summary>
         /// Gets or sets the offset the virtual address range begins at. E.g. address range 192.168.80, offset 10, 8 game instances => range 192.168.80.10 - 192.168.80.18.
         /// </summary>
         [XmlElement(ElementName = "VirtualAddressOffset")]
-        public byte VirtualAddressOffset
-        {
-            get
-            {
-                return virtAddressOffset;
-            }
-
-            set
-            {
-                virtAddressOffset = value;
-            }
-        }
+        public byte VirtualAddressOffset { get; set; } = 1;
 
         /// <summary>
-        /// Only for XML serialization!
+        /// Gets or sets the verbosity of the log output written to the console window.
         /// </summary>
-        [XmlElement(ElementName = "AttachConsole")]
-        public bool[] XMLAttachConsole
-        {
-            get
-            {
-                return attachConsole;
-            }
+        [XmlElement(ElementName = "ConsoleVerbosity")]
+        public LogLevel ConsoleVerbosity { get; set; }
 
-            set
-            {
-                if (value.Length > FlatOut2.MaxInstanceCount)
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
 
-                attachConsole = value;
-            }
-        }
+        /// <summary>
+        /// Gets or sets the verbosity of the log output written to the log file.
+        /// </summary>
+        [XmlElement(ElementName = "LogFileVerbosity")]
+        public LogLevel LogFileVerbosity { get; set; }
 
         /// <summary>
         /// Only for XML serialization!
@@ -368,18 +334,6 @@
         }
 
         /// <summary>
-        /// Sets if all instances should launch with a console window for debug output.
-        /// </summary>
-        /// <param name="attach">If true(default) all instances will launch with console output, if false none will.</param>
-        public void AttachConsoleToAll(bool attach = true)
-        {
-            for (int i = 0; i < attachConsole.Length; i++)
-            {
-                attachConsole[i] = attach;
-            }
-        }
-
-        /// <summary>
         /// Waits for the primary(host) game instance to signal that it has finished loading. This also signals at what point the shared settings memory is safe to close on this process.
         /// </summary>
         public void WaitForHostInstance()
@@ -528,16 +482,16 @@
             global.InstanceCount = instanceCount;
             global.UseInputEmulation = useInputEmulation;
             global.SkipIntros = skipIntros;
-            global.AttachConsole = new bool[FlatOut2.MaxInstanceCount];
+            global.LogFileVerbosity = LogFileVerbosity;
+            global.ConsoleVerbosity = ConsoleVerbosity;
             global.WindowPos = new RECT[FlatOut2.MaxInstanceCount];
             global.Controller = new Guid[FlatOut2.MaxInstanceCount];
-            global.VirtHostPort = virtHostPort;
-            global.VirtAddressOffset = virtAddressOffset;
+            global.VirtHostPort = VirtualHostPort;
+            global.VirtAddressOffset = VirtualAddressOffset;
             global.VirtAddressRange = new char[16];
             virtAddressRange.ToString().ToCharArray().CopyTo(global.VirtAddressRange, 0);
             for (int i = 0; i < instanceCount; i++)
             {
-                global.AttachConsole[i] = attachConsole[i];
                 global.WindowPos[i] = windowPos[i];
                 global.Controller[i] = controllers[i];
             }
@@ -650,10 +604,10 @@
             public byte VirtAddressOffset;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
             public char[] VirtAddressRange;
+            public LogLevel LogFileVerbosity;
+            public LogLevel ConsoleVerbosity;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = FlatOut2.MaxInstanceCount)]
             public Guid[] Controller;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = FlatOut2.MaxInstanceCount)]
-            public bool[] AttachConsole;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = FlatOut2.MaxInstanceCount)]
             public RECT[] WindowPos;
         }

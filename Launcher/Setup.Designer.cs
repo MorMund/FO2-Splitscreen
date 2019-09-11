@@ -32,7 +32,6 @@
             this.ConfigTabControl = new System.Windows.Forms.TabControl();
             this.TabGeneralSettings = new System.Windows.Forms.TabPage();
             this.InputSkipIntros = new System.Windows.Forms.CheckBox();
-            this.InputAttachConsole = new System.Windows.Forms.CheckBox();
             this.InputResoSelect = new System.Windows.Forms.ComboBox();
             this.InputInstanceCount = new System.Windows.Forms.NumericUpDown();
             this.LabelResolution = new System.Windows.Forms.Label();
@@ -43,6 +42,11 @@
             this.InputControllerSelect = new System.Windows.Forms.ComboBox();
             this.ControllerBTResetAll = new System.Windows.Forms.Button();
             this.ControllerPlayerList = new System.Windows.Forms.ListView();
+            this.TabDebugging = new System.Windows.Forms.TabPage();
+            this.ConsoleVerbositySelect = new System.Windows.Forms.ComboBox();
+            this.LabelConsoleVerbosity = new System.Windows.Forms.Label();
+            this.LogFileVerbositySelect = new System.Windows.Forms.ComboBox();
+            this.LabelDebugFileVerb = new System.Windows.Forms.Label();
             this.ButtonLaunch = new System.Windows.Forms.Button();
             this.NewVerLink = new System.Windows.Forms.LinkLabel();
             this.ConfigTabControl.SuspendLayout();
@@ -50,12 +54,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.InputInstanceCount)).BeginInit();
             this.TabController.SuspendLayout();
             this.ControllerOptionsPanel.SuspendLayout();
+            this.TabDebugging.SuspendLayout();
             this.SuspendLayout();
             // 
             // ConfigTabControl
             // 
             this.ConfigTabControl.Controls.Add(this.TabGeneralSettings);
             this.ConfigTabControl.Controls.Add(this.TabController);
+            this.ConfigTabControl.Controls.Add(this.TabDebugging);
             resources.ApplyResources(this.ConfigTabControl, "ConfigTabControl");
             this.ConfigTabControl.Name = "ConfigTabControl";
             this.ConfigTabControl.SelectedIndex = 0;
@@ -64,7 +70,6 @@
             // TabGeneralSettings
             // 
             this.TabGeneralSettings.Controls.Add(this.InputSkipIntros);
-            this.TabGeneralSettings.Controls.Add(this.InputAttachConsole);
             this.TabGeneralSettings.Controls.Add(this.InputResoSelect);
             this.TabGeneralSettings.Controls.Add(this.InputInstanceCount);
             this.TabGeneralSettings.Controls.Add(this.LabelResolution);
@@ -81,13 +86,6 @@
             this.InputSkipIntros.Name = "InputSkipIntros";
             this.InputSkipIntros.UseVisualStyleBackColor = true;
             this.InputSkipIntros.CheckedChanged += new System.EventHandler(this.InputSkipIntros_CheckedChanged);
-            // 
-            // InputAttachConsole
-            // 
-            resources.ApplyResources(this.InputAttachConsole, "InputAttachConsole");
-            this.InputAttachConsole.Name = "InputAttachConsole";
-            this.InputAttachConsole.UseVisualStyleBackColor = true;
-            this.InputAttachConsole.CheckedChanged += new System.EventHandler(this.InputAttachConsole_CheckedChanged);
             // 
             // InputResoSelect
             // 
@@ -165,10 +163,61 @@
             // ControllerPlayerList
             // 
             resources.ApplyResources(this.ControllerPlayerList, "ControllerPlayerList");
+            this.ControllerPlayerList.HideSelection = false;
             this.ControllerPlayerList.MultiSelect = false;
             this.ControllerPlayerList.Name = "ControllerPlayerList";
             this.ControllerPlayerList.UseCompatibleStateImageBehavior = false;
             this.ControllerPlayerList.SelectedIndexChanged += new System.EventHandler(this.ControllerPlayerList_SelectedIndexChanged);
+            // 
+            // TabDebugging
+            // 
+            this.TabDebugging.Controls.Add(this.ConsoleVerbositySelect);
+            this.TabDebugging.Controls.Add(this.LabelConsoleVerbosity);
+            this.TabDebugging.Controls.Add(this.LogFileVerbositySelect);
+            this.TabDebugging.Controls.Add(this.LabelDebugFileVerb);
+            resources.ApplyResources(this.TabDebugging, "TabDebugging");
+            this.TabDebugging.Name = "TabDebugging";
+            this.TabDebugging.UseVisualStyleBackColor = true;
+            // 
+            // ConsoleVerbositySelect
+            // 
+            this.ConsoleVerbositySelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ConsoleVerbositySelect.FormattingEnabled = true;
+            this.ConsoleVerbositySelect.Items.AddRange(new object[] {
+            resources.GetString("ConsoleVerbositySelect.Items"),
+            resources.GetString("ConsoleVerbositySelect.Items1"),
+            resources.GetString("ConsoleVerbositySelect.Items2"),
+            resources.GetString("ConsoleVerbositySelect.Items3"),
+            resources.GetString("ConsoleVerbositySelect.Items4"),
+            resources.GetString("ConsoleVerbositySelect.Items5")});
+            resources.ApplyResources(this.ConsoleVerbositySelect, "ConsoleVerbositySelect");
+            this.ConsoleVerbositySelect.Name = "ConsoleVerbositySelect";
+            this.ConsoleVerbositySelect.SelectedIndexChanged += new System.EventHandler(this.ConsoleVerbositySelect_SelectedIndexChanged);
+            // 
+            // LabelConsoleVerbosity
+            // 
+            resources.ApplyResources(this.LabelConsoleVerbosity, "LabelConsoleVerbosity");
+            this.LabelConsoleVerbosity.Name = "LabelConsoleVerbosity";
+            // 
+            // LogFileVerbositySelect
+            // 
+            this.LogFileVerbositySelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.LogFileVerbositySelect.FormattingEnabled = true;
+            this.LogFileVerbositySelect.Items.AddRange(new object[] {
+            resources.GetString("LogFileVerbositySelect.Items"),
+            resources.GetString("LogFileVerbositySelect.Items1"),
+            resources.GetString("LogFileVerbositySelect.Items2"),
+            resources.GetString("LogFileVerbositySelect.Items3"),
+            resources.GetString("LogFileVerbositySelect.Items4"),
+            resources.GetString("LogFileVerbositySelect.Items5")});
+            resources.ApplyResources(this.LogFileVerbositySelect, "LogFileVerbositySelect");
+            this.LogFileVerbositySelect.Name = "LogFileVerbositySelect";
+            this.LogFileVerbositySelect.SelectedIndexChanged += new System.EventHandler(this.LogFileVerbositySelect_SelectedIndexChanged);
+            // 
+            // LabelDebugFileVerb
+            // 
+            resources.ApplyResources(this.LabelDebugFileVerb, "LabelDebugFileVerb");
+            this.LabelDebugFileVerb.Name = "LabelDebugFileVerb";
             // 
             // ButtonLaunch
             // 
@@ -202,6 +251,8 @@
             this.TabController.ResumeLayout(false);
             this.ControllerOptionsPanel.ResumeLayout(false);
             this.ControllerOptionsPanel.PerformLayout();
+            this.TabDebugging.ResumeLayout(false);
+            this.TabDebugging.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -222,8 +273,12 @@
         private System.Windows.Forms.ComboBox InputControllerSelect;
         private System.Windows.Forms.Button ControllerBTResetAll;
         private System.Windows.Forms.ListView ControllerPlayerList;
-        private System.Windows.Forms.CheckBox InputAttachConsole;
         private System.Windows.Forms.CheckBox InputSkipIntros;
         private System.Windows.Forms.LinkLabel NewVerLink;
+        private System.Windows.Forms.TabPage TabDebugging;
+        private System.Windows.Forms.ComboBox LogFileVerbositySelect;
+        private System.Windows.Forms.Label LabelDebugFileVerb;
+        private System.Windows.Forms.ComboBox ConsoleVerbositySelect;
+        private System.Windows.Forms.Label LabelConsoleVerbosity;
     }
 }

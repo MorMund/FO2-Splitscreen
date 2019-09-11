@@ -38,10 +38,6 @@
                 UpdateSettings(this.settings);
                 EnterConfigTab();
                 ConfigTabControl.Enabled = true;
-#if DEBUG
-                InputAttachConsole.Enabled = true;
-                InputAttachConsole.Visible = true;
-#endif
             },
             CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
         }
@@ -198,9 +194,10 @@
         private void UpdateSettings(Settings oldSettings)
         {
             InputInstanceCount.Value = settings.InstanceCount;
-            InputAttachConsole.Checked = settings.XMLAttachConsole[0];
             settings.SkipIntros = oldSettings.SkipIntros;
             InputSkipIntros.Checked = settings.SkipIntros;
+            ConsoleVerbositySelect.SelectedItem = settings.ConsoleVerbosity.ToString();
+            LogFileVerbositySelect.SelectedItem = settings.LogFileVerbosity.ToString();
             RECT res = (oldSettings.GetWindowPos().Equals(RECT.Zero) ? new RECT(0, 0, 640, 480) : oldSettings.GetWindowPos());
             settings.SetDefaultWindowPos(res.Width, res.Height);
         }
@@ -345,11 +342,6 @@
             }
         }
 
-        private void InputAttachConsole_CheckedChanged(object sender, EventArgs e)
-        {
-            settings.AttachConsoleToAll(InputAttachConsole.Checked);
-        }
-
         private void InputSkipIntros_CheckedChanged(object sender, EventArgs e)
         {
             settings.SkipIntros = InputSkipIntros.Checked;
@@ -358,6 +350,16 @@
         private void NewVerLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/DeadlySurprise/FO2-Splitscreen/releases");
+        }
+
+        private void LogFileVerbositySelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings.LogFileVerbosity = (LogLevel)Enum.Parse(typeof(LogLevel), LogFileVerbositySelect.SelectedItem.ToString());
+        }
+
+        private void ConsoleVerbositySelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            settings.ConsoleVerbosity = (LogLevel)Enum.Parse(typeof(LogLevel), ConsoleVerbositySelect.SelectedItem.ToString());
         }
     }
 }
