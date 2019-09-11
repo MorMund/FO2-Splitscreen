@@ -18,13 +18,13 @@ public:
 		static Logging instance;
 		return instance;
 	}
+	enum Level : int { Off, Error, Warn, Info, Debug, Trace };
 	void error(const char* tag, std::string msg) { log(Level::Error, tag, msg); }
 	void warn(const char* tag, std::string msg) { log(Level::Warn, tag, msg); }
 	void info(const char* tag, std::string msg) { log(Level::Info, tag, msg); }
 	void debug(const char* tag, std::string msg) { log(Level::Debug, tag, msg); }
 	void trace(const char* tag, std::string msg) { log(Level::Trace, tag, msg); }
 private:
-	enum Level { Off, Error, Warn, Info, Debug, Trace };
 	Logging();
 	void log(Level level, const char* tag, std::string msg);
 	void writeBuffer(std::string formattedMsg);

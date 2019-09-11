@@ -14,7 +14,6 @@ struct SET_InstanceSettings
 	GUID instanceController;
 	HWND mainHwnd = NULL;
 	DWORD procID = NULL;
-	BOOL attachConsole = FALSE;
 	RECT windowPos;
 	CDirect3D9Hook* d3d = NULL;
 	CDirectInput8Hook* directInput = NULL;
@@ -33,8 +32,9 @@ struct SET_GlobalSettings
 	BOOL useInputEmulation;
 	BOOL skipIntros;
 	SET_NetSettings network;
+	Logging::Level logFileVerbosity;
+	Logging::Level consoleVerbosity;
 	GUID controller[FO2_MaxClientCount];
-	BOOL attachConsole[FO2_MaxClientCount];
 	RECT windowPos[FO2_MaxClientCount];
 };
 
@@ -59,6 +59,8 @@ public:
 	int GetInstanceID();
 	int GetInstanceID(u_short clientPortH);
 	u_short GetInstanceVirtPort(int instanceID);
+	Logging::Level GetConsoleVerbosity() { return m_settings->globals.consoleVerbosity; }
+	Logging::Level GetLogFileVerbosity() { return m_settings->globals.logFileVerbosity; }
 	void SetInstanceVirtPort(u_short clientPortH);
 	void SetGameWindowHandle(HWND window);
 	void SetDirect3DHook(CDirect3D9Hook* d3d);

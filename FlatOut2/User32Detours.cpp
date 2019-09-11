@@ -201,7 +201,7 @@ HWND WINAPI MyCreateWindowExA(
 	LPVOID lpParam)
 {
 	SET_InstanceSettings instSet = InstanceSettings::GetSettings()->GetLocalSettings();
-	if (instSet.attachConsole)
+	if (InstanceSettings::GetSettings()->GetConsoleVerbosity() > Logging::Off)
 	{
 		AllocConsole();
 		AttachConsole(GetCurrentProcessId());
