@@ -80,6 +80,11 @@ int WSAAPI MyCleanup()
 int WSAAPI MyWSAStart(WORD wVersionRequested, LPWSADATA lpWSAData)
 {
 	int r = ((WSAStart)oWSAStart)(wVersionRequested, lpWSAData);
+	if (virtIP) {
+		Logging::getInstance().warn("NETWORK", "Game called WinSock WSAStartup more than once.");
+		return r;
+	}
+
 	if (r == 0)
 	{
 #if oCall_Count != 10
