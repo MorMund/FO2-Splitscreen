@@ -1,0 +1,10 @@
+{
+    "Version" : "0.1.2",
+    "Date" : "2019/09/11",
+    "CacheDuration" : "23:59:59.999",
+    "Changelog" : [
+        "Fixed Steam version of the game being unable to find the hosts game",
+        "Added support for writing debug info to a log file",
+        "Added notifications about updates to the mod"
+    ]
+  }

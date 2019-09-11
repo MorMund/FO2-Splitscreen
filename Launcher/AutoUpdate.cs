@@ -11,7 +11,7 @@
 
     public static class AutoUpdate
     {
-        private const string versionURI = "https://1smi6xsg92.execute-api.us-east-2.amazonaws.com/release";
+        private const string versionURI = "https://fo2ssversion.s3.eu-central-1.amazonaws.com/version.json";
         private const string verCacheFile = "FO2SS_CachedVersion.json";
         private const string flatOutDll = "FlatOut2.dll";
         private const int netRetryCount = 3;
@@ -63,35 +63,41 @@
                 }
             }
 
-            using (JsonTextReader jsonReader = new JsonTextReader(new StringReader(req)))
+            VersionUpdate update = new VersionUpdate();
+            try
             {
-                var update = json.Deserialize<VersionUpdate>(jsonReader);
-                var currentVer = Version.Parse(update.Version);
-                var cacheValidTo = DateTime.UtcNow + update.CacheDuration;
-                if (cachedVersion != null && cachedVersion >= currentVer)
+                using (JsonTextReader jsonReader = new JsonTextReader(new StringReader(req)))
                 {
-                    currentVer = cachedVersion;
-                    Console.WriteLine("[Updater] Cached Version is newest Version.");
+                    update = json.Deserialize<VersionUpdate>(jsonReader);
                 }
-                else
-                {
-                    Console.WriteLine($"[Updater] New version is available! Version {currentVer}");
-                    notify = true;
-                }
-
-                if (currentVer > LauncherVersion)
-                {
-                    var args = new VersionUpdateEventArgs(update);
-                    NewVersion?.Invoke(null, args);
-
-                    if (notify)
-                    {
-                        NotifyNewVersion?.Invoke(null, args);
-                    }
-                }
-
-                WriteVersionCache(notify, currentVer, cacheValidTo);
             }
+            catch (Exception)
+            {
+                Console.WriteLine("Failed to read current version info.");
+                return;
+            }
+
+
+            var currentVer = Version.Parse(update.Version);
+            var cacheValidTo = DateTime.UtcNow + update.CacheDuration;
+            if (currentVer == null || cachedVersion >= currentVer)
+            {
+                currentVer = cachedVersion;
+            }
+
+            if (currentVer > LauncherVersion)
+            {
+                var args = new VersionUpdateEventArgs(update);
+                NewVersion?.Invoke(null, args);
+
+                if (notify)
+                {
+                    NotifyNewVersion?.Invoke(null, args);
+                    notify = false;
+                }
+            }
+
+            WriteVersionCache(notify, currentVer, cacheValidTo);
         }
 
         private static void WriteVersionCache(bool notify, Version currentVer, DateTime cacheValidTo)
@@ -121,7 +127,6 @@
 
         private static Version GetCachedVersion(out bool notify)
         {
-            var json = JsonSerializer.Create();
             Version cachedVersion = null;
             notify = true;
             try
@@ -129,16 +134,12 @@
                 if (File.Exists(CacheFilePath))
                 {
                     var verCache = GetVersionCache();
-                    if (verCache.ValideUntil > DateTime.UtcNow)
+                    if(!Version.TryParse(verCache.Version, out cachedVersion))
                     {
-                        Console.WriteLine("[Updater] Version cache is still valid.");
                         return null;
                     }
-                    else
-                    {
-                        Version.TryParse(verCache.Version, out cachedVersion);
-                        notify = verCache.Notify;
-                    }
+
+                    notify = verCache.Notify;
 
                 }
             }
