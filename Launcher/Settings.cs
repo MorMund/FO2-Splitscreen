@@ -320,15 +320,16 @@
             int screenX = SystemInformation.VirtualScreen.X;
             int screenY = SystemInformation.VirtualScreen.Y;
             int screenW = SystemInformation.VirtualScreen.Width;
-            int screenH = SystemInformation.VirtualScreen.Height;
+            int windowX = screenX;
+            int windowY = screenY;
             for (int i = 0; i < instanceCount; i++)
             {
-                windowPos[i] = new RECT(screenX, screenY, windowWidth, windowHeight);
-                screenX += windowWidth;
-                if (screenX + windowWidth > screenW)
+                windowPos[i] = new RECT(windowX, windowY, windowWidth, windowHeight);
+                windowX += windowWidth;
+                if (windowX + windowWidth > screenX + screenW)
                 {
-                    screenX = 0;
-                    screenY += windowHeight;
+                    windowX = screenX;
+                    windowY += windowHeight;
                 }
             }
         }
