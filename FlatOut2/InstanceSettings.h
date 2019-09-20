@@ -8,13 +8,21 @@
 #define INSTANCESETTINGS_MEMNAME L"Local\\FO2_SS_Shared"
 #define INSTANCESETTINGS_WAITNAME L"Local\\FO2_SS_Wait"
 
+struct RECT2
+{
+	int x;
+	int y;
+	int width;
+	int height;
+};
+
 struct SET_InstanceSettings
 {
 	int instanceID;
 	GUID instanceController;
 	HWND mainHwnd = NULL;
 	DWORD procID = NULL;
-	RECT windowPos;
+	RECT2 windowPos;
 	CDirect3D9Hook* d3d = NULL;
 	CDirectInput8Hook* directInput = NULL;
 };
@@ -35,7 +43,7 @@ struct SET_GlobalSettings
 	Logging::Level logFileVerbosity;
 	Logging::Level consoleVerbosity;
 	GUID controller[FO2_MaxClientCount];
-	RECT windowPos[FO2_MaxClientCount];
+	RECT2 windowPos[FO2_MaxClientCount];
 };
 
 struct SET_SharedSettings

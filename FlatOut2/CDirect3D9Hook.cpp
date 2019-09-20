@@ -83,8 +83,8 @@ HRESULT CDirect3D9Hook::EnumAdapterModes(UINT Adapter, D3DFORMAT Format, UINT Mo
 {
 	auto instSet = InstanceSettings::GetSettings()->GetLocalSettings();
 	pMode->Format = D3DFMT_X8R8G8B8;
-	pMode->Height = instSet.windowPos.bottom - instSet.windowPos.top;
-	pMode->Width = instSet.windowPos.right - instSet.windowPos.left;
+	pMode->Height = instSet.windowPos.height;
+	pMode->Width = instSet.windowPos.width;
 	pMode->RefreshRate = 60;
 	return D3D_OK;
 }
