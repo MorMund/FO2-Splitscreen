@@ -66,6 +66,9 @@ HRESULT CDirect3D9Hook::CreateDevice(UINT Adapter, D3DDEVTYPE DeviceType, HWND h
 		MessageBox(NULL, errMsg, L"DirectX Error", MB_OK | MB_ICONERROR);
 		throw new std::exception("Failed to create DirectX9 Device.");
 	}
+	std::ostringstream msg;
+	msg << "Create DirectX with resolution of " << pPresentationParameters->BackBufferWidth << "x" << pPresentationParameters->BackBufferHeight;
+	Logging::getInstance().debug("DX", msg.str());
 	m_pdev = new CDirect3D9DevHook(*ppReturnedDeviceInterface);
 	*ppReturnedDeviceInterface = m_pdev;
 	return hr;
