@@ -23,18 +23,6 @@ BOOL disableJoyInput = FALSE;
 
 std::list<UINT> lastEmulatedPresses;
 
-void WinDetour()
-{
-	DetourTransactionBegin();
-	DetourUpdateThread(GetCurrentThread());
-	GameDetour();
-	if (DetourTransactionCommit() != NO_ERROR)
-	{
-		Logging::getInstance().error("DETOURS", std::string("Detour Error!"));
-		throw std::exception("Detour Error!");
-	}
-}
-
 void EmulateKeyPress(DWORD key)
 {
 	isInjectedHook = TRUE;
@@ -206,7 +194,7 @@ HWND WINAPI MyCreateWindowExA(
 		Logging::getInstance().debug("DEBUGGER", std::string("Waiting for 5 seconds."));
 		Sleep(5000);
 	}
-	WinDetour();
+
 	if (NULL != script && InstanceSettings::GetSettings()->IsHostInstance())
 	{
 		script->SetSetting(std::string("HOST"), 1);
