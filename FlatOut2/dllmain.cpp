@@ -88,7 +88,6 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
-		earlyDetour();
 		if (InstanceSettings::GetSettings() == NULL)
 		{
 			int nArgs = -1, instanceID = -1, i = 0;
@@ -116,6 +115,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 			}
 			LocalFree(szArglist);
 			InstanceSettings::InitSettings(instanceID);
+			earlyDetour();
 		}
 		break;
 	case DLL_THREAD_ATTACH:

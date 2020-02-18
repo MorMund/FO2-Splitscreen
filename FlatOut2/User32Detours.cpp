@@ -201,16 +201,6 @@ HWND WINAPI MyCreateWindowExA(
 	LPVOID lpParam)
 {
 	SET_InstanceSettings instSet = InstanceSettings::GetSettings()->GetLocalSettings();
-	if (InstanceSettings::GetSettings()->GetConsoleVerbosity() > Logging::Off)
-	{
-		AllocConsole();
-		AttachConsole(GetCurrentProcessId());
-		FILE* con;
-		freopen_s(&con, "CON", "w", stdout);
-		std::ostringstream msg;
-		msg << "Attached console for instance : " << InstanceSettings::GetSettings()->GetInstanceID() << " process id : " << GetCurrentProcessId();
-		Logging::getInstance().debug("DEBUGGER", msg.str());
-	}
 	if (FO2_AllowAttach2)
 	{
 		Logging::getInstance().debug("DEBUGGER", std::string("Waiting for 5 seconds."));
@@ -244,6 +234,17 @@ HWND WINAPI MyCreateWindowExA(
 
 void User32Detour()
 {
+	SET_InstanceSettings instSet = InstanceSettings::GetSettings()->GetLocalSettings();
+	if (InstanceSettings::GetSettings()->GetConsoleVerbosity() > Logging::Off)
+	{
+		AllocConsole();
+		AttachConsole(GetCurrentProcessId());
+		FILE* con;
+		freopen_s(&con, "CON", "w", stdout);
+		std::ostringstream msg;
+		msg << "Attached console for instance : " << InstanceSettings::GetSettings()->GetInstanceID() << " process id : " << GetCurrentProcessId();
+		Logging::getInstance().debug("DEBUGGER", msg.str());
+	}
 	HMODULE user32DLL = LoadLibrary(L"User32.dll");
 	oCreateWinExA = GetProcAddress(user32DLL, "CreateWindowExA");
 	oPeekMessageA = GetProcAddress(user32DLL, "PeekMessageA");
