@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BinaryPatching.h" />
     <ClInclude Include="CDIDevice8Hook.h" />
     <ClInclude Include="CDirect3D9DevHook.h" />
     <ClInclude Include="CDirect3D9Hook.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="WinSockDetours.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BinaryPatching.cpp" />
     <ClCompile Include="CDIDevice8Hook.cpp" />
     <ClCompile Include="CDirect3D9DevHook.cpp" />
     <ClCompile Include="CDirect3D9Hook.cpp" />
