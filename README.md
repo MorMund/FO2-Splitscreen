@@ -27,5 +27,9 @@
 ### 4. Advanced Settings  
  * Settings can be changed manually by editing `Splitscreen_Settings.xml` and starting the `Launcher.exe` with the command line argument `-noConfig`  
 
-## 3. Troubleshooting :
+## 3. Troubleshooting
  * If the game repeatedly crashes on startup, try disabling "Skip intro videos" in the launcher.
+
+## 5. Documentation
+
+Documentation about the inner workings of the mod can be found in the [docs](/docs) folder.
