@@ -4,6 +4,7 @@
 #include "WinSockDetours.h"
 #include "DXDetours.h"
 #include "DIDetours.h"
+#include "GameDetours.h"
 
 void earlyDetour()
 {
@@ -13,6 +14,7 @@ void earlyDetour()
 	WinSockDetour();
 	DXDetour();
 	DIDetour();
+	DeferredHookDetour();
 	if (DetourTransactionCommit() != NO_ERROR)
 	{
 		Logging::getInstance().error("DETOURS", std::string("Detour Error!"));

@@ -27,6 +27,7 @@ typedef BOOL(WSAAPI* WSAEReset)(WSAEVENT hEvent);
 typedef DWORD(WINAPI* GetAdaptInfo)(PIP_ADAPTER_INFO pAdapterInfo, PULONG pOutBufLen);
 typedef int (WSAAPI* hostName)(char* name, int namelen);
 typedef struct hostent* FAR(WSAAPI* hostbyname)(const char* name);
+typedef int(_stdcall* _WinMain)(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd);
 typedef void(_stdcall* PlayMovie)(UINT unknown1, LPCSTR vidPath, UINT unknown2);
 typedef void(_stdcall* VoidCall)();
 #define COM_METHOD(TYPE, METHOD) TYPE STDMETHODCALLTYPE METHOD
