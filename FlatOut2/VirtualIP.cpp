@@ -345,8 +345,10 @@ hostent * VirtualIP::GetHostByName(const char * name)
 	{
 		const char* clIDStr = name + sizeof(VirtNet_HostName) - 1;
 		int clID = atoi(clIDStr);
+		auto clientVirtAddr = GetClientVirtAddr(clID);
+
 		strcpy_s(hostNameQuery, name);
-		memcpy_s(hostAddrQuery, sizeof(hostAddrQuery), &GetClientVirtAddr(clID), sizeof(in_addr));
+		memcpy_s(hostAddrQuery, sizeof(hostAddrQuery), &clientVirtAddr, sizeof(in_addr));
 		hostAddrQueryList[0] = hostAddrQuery;
 		hostAddrQueryList[1] = NULL;
 		hostQuery.h_name = hostNameQuery;

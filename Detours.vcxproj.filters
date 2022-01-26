@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Header Files">
@@ -12,6 +12,7 @@
     <ClInclude Include="Detours\src\*.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Detours\src\*.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Detours\src\*.cpp">
