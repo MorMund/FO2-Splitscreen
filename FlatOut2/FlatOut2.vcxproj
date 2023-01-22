@@ -159,8 +159,10 @@
     <ClInclude Include="CDirect3D9DevHook.h" />
     <ClInclude Include="CDirect3D9Hook.h" />
     <ClInclude Include="CDirectInput8Hook.h" />
+    <ClInclude Include="CDirectSound8Hook.h" />
     <ClInclude Include="DetourCallDefs.h" />
     <ClInclude Include="DIDetours.h" />
+    <ClInclude Include="DsDetours.h" />
     <ClInclude Include="DXDetours.h" />
     <ClInclude Include="FlatOut2.h" />
     <ClInclude Include="GameDetours.h" />
@@ -181,8 +183,10 @@
     <ClCompile Include="CDirect3D9DevHook.cpp" />
     <ClCompile Include="CDirect3D9Hook.cpp" />
     <ClCompile Include="CDirectInput8Hook.cpp" />
+    <ClCompile Include="CDirectSound8Hook.cpp" />
     <ClCompile Include="DIDetours.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="DsDetours.cpp" />
     <ClCompile Include="DXDetours.cpp" />
     <ClCompile Include="FlatOut2.cpp" />
     <ClCompile Include="GameDetours.cpp" />

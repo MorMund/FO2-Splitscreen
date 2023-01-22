@@ -87,6 +87,12 @@
     <ClInclude Include="Logging.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DsDetours.h">
+      <Filter>Header Files\Detours</Filter>
+    </ClInclude>
+    <ClInclude Include="CDirectSound8Hook.h">
+      <Filter>Header Files\InterfaceHooks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -142,6 +148,12 @@
     </ClCompile>
     <ClCompile Include="Logging.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DsDetours.cpp">
+      <Filter>Source Files\Detours</Filter>
+    </ClCompile>
+    <ClCompile Include="CDirectSound8Hook.cpp">
+      <Filter>Source Files\InterfaceHooks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

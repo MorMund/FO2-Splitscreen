@@ -4,6 +4,7 @@
 #include "WinSockDetours.h"
 #include "DXDetours.h"
 #include "DIDetours.h"
+#include "DsDetours.h"
 #include "GameDetours.h"
 
 static int (WINAPI* TrueEntryPoint)(VOID) = NULL;
@@ -16,6 +17,7 @@ int WINAPI entryPointWithDetours(VOID)
 	WinSockDetour();
 	DXDetour();
 	DIDetour();
+	DsDetour();
 	GameDetours();
 	if (DetourTransactionCommit() != NO_ERROR)
 	{

@@ -20,6 +20,8 @@
 #include <dinput.h>
 #include <Iphlpapi.h>
 #include <Psapi.h>
+#include <mmreg.h>
+#include <dsound.h>
 
 // TODO: reference additional headers your program requires here
 #include <iostream>
