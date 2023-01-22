@@ -39,6 +39,7 @@
         private WaitHandle waitHandle;
         private bool useInputEmulation;
         private bool skipIntros = true;
+        private bool useBackgroundAudio = true;
         #endregion
 
         #region Constructors
@@ -253,6 +254,23 @@
             set
             {
                 skipIntros = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets if the intro videos should be skipped
+        /// </summary>
+        [XmlElement(ElementName = "BackgroundAudio")]
+        public bool UseBackgroundAudio
+        {
+            get
+            {
+                return useBackgroundAudio;
+            }
+
+            set
+            {
+                useBackgroundAudio = value;
             }
         }
         #endregion
@@ -470,7 +488,7 @@
 
         private void SetupInstances()
         {
-            bool createNew = false;
+            bool createNew;
             waitHandle = new EventWaitHandle(false, EventResetMode.ManualReset, LauncherWaitHandleName, out createNew);
             if (!createNew)
             {
@@ -483,6 +501,7 @@
             global.InstanceCount = instanceCount;
             global.UseInputEmulation = useInputEmulation;
             global.SkipIntros = skipIntros;
+            global.useBackgroundAudio = useBackgroundAudio;
             global.LogFileVerbosity = LogFileVerbosity;
             global.ConsoleVerbosity = ConsoleVerbosity;
             global.WindowPos = new RECT[FlatOut2.MaxInstanceCount];
@@ -601,6 +620,7 @@
             public int InstanceCount;
             public bool UseInputEmulation;
             public bool SkipIntros;
+            public bool useBackgroundAudio;
             public ushort VirtHostPort;
             public byte VirtAddressOffset;
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]

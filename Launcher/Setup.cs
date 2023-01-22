@@ -196,6 +196,8 @@
             InputInstanceCount.Value = settings.InstanceCount;
             settings.SkipIntros = oldSettings.SkipIntros;
             InputSkipIntros.Checked = settings.SkipIntros;
+            settings.UseBackgroundAudio = oldSettings.UseBackgroundAudio;
+            InputBackgroundSound.Checked = settings.UseBackgroundAudio;
             ConsoleVerbositySelect.SelectedItem = settings.ConsoleVerbosity.ToString();
             LogFileVerbositySelect.SelectedItem = settings.LogFileVerbosity.ToString();
             RECT res = (oldSettings.GetWindowPos().Equals(RECT.Zero) ? new RECT(0, 0, 640, 480) : oldSettings.GetWindowPos());
@@ -360,6 +362,11 @@
         private void ConsoleVerbositySelect_SelectedIndexChanged(object sender, EventArgs e)
         {
             settings.ConsoleVerbosity = (LogLevel)Enum.Parse(typeof(LogLevel), ConsoleVerbositySelect.SelectedItem.ToString());
+        }
+
+        private void InputBackgroundSound_CheckedChanged(object sender, EventArgs e)
+        {
+            settings.UseBackgroundAudio = InputBackgroundSound.Checked;
         }
     }
 }

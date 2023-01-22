@@ -31,6 +31,7 @@ struct SET_GlobalSettings
 	int instanceCount;
 	BOOL useInputEmulation;
 	BOOL skipIntros;
+	BOOL useBackgroundAudio;
 	SET_NetSettings network;
 	Logging::Level logFileVerbosity;
 	Logging::Level consoleVerbosity;

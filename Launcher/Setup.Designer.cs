@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Setup));
             this.ConfigTabControl = new System.Windows.Forms.TabControl();
             this.TabGeneralSettings = new System.Windows.Forms.TabPage();
+            this.InputBackgroundSound = new System.Windows.Forms.CheckBox();
             this.InputSkipIntros = new System.Windows.Forms.CheckBox();
             this.InputResoSelect = new System.Windows.Forms.ComboBox();
             this.InputInstanceCount = new System.Windows.Forms.NumericUpDown();
@@ -69,6 +70,7 @@
             // 
             // TabGeneralSettings
             // 
+            this.TabGeneralSettings.Controls.Add(this.InputBackgroundSound);
             this.TabGeneralSettings.Controls.Add(this.InputSkipIntros);
             this.TabGeneralSettings.Controls.Add(this.InputResoSelect);
             this.TabGeneralSettings.Controls.Add(this.InputInstanceCount);
@@ -77,6 +79,15 @@
             resources.ApplyResources(this.TabGeneralSettings, "TabGeneralSettings");
             this.TabGeneralSettings.Name = "TabGeneralSettings";
             this.TabGeneralSettings.UseVisualStyleBackColor = true;
+            // 
+            // InputBackgroundSound
+            // 
+            resources.ApplyResources(this.InputBackgroundSound, "InputBackgroundSound");
+            this.InputBackgroundSound.Checked = true;
+            this.InputBackgroundSound.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.InputBackgroundSound.Name = "InputBackgroundSound";
+            this.InputBackgroundSound.UseVisualStyleBackColor = true;
+            this.InputBackgroundSound.CheckedChanged += new System.EventHandler(this.InputBackgroundSound_CheckedChanged);
             // 
             // InputSkipIntros
             // 
@@ -280,5 +291,6 @@
         private System.Windows.Forms.Label LabelDebugFileVerb;
         private System.Windows.Forms.ComboBox ConsoleVerbositySelect;
         private System.Windows.Forms.Label LabelConsoleVerbosity;
+        private System.Windows.Forms.CheckBox InputBackgroundSound;
     }
 }
