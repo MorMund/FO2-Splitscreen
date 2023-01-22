@@ -32,11 +32,6 @@ BOOL _stdcall DIEnumDevicesCallback(LPCDIDEVICEINSTANCEW lpddi, LPVOID pvRef)
 FLATOUT2_API  int _stdcall CreateNewInstance(LPWSTR cmdLine)
 {
 	std::cout << "Launching FlatOut2 executable.\n";
-	SECURITY_ATTRIBUTES saAttr;
-	saAttr.nLength = sizeof(SECURITY_ATTRIBUTES);
-	saAttr.bInheritHandle = TRUE;
-	saAttr.lpSecurityDescriptor = NULL;
-
 	STARTUPINFO suInfo = STARTUPINFO();
 	ZeroMemory(&suInfo, sizeof(STARTUPINFO));
 	suInfo.cb = sizeof(STARTUPINFO);
@@ -46,57 +41,11 @@ FLATOUT2_API  int _stdcall CreateNewInstance(LPWSTR cmdLine)
 	suInfo.dwYSize = CW_USEDEFAULT;
 	suInfo.dwFlags |= STARTF_USESTDHANDLES;
 
+	LPCSTR hookDllPath = "FlatOut2.dll";
+
 	PROCESS_INFORMATION pInf;
-	if (!CreateProcess(
-		L"FlatOut2.exe",
-		cmdLine,
-		NULL,
-		NULL,
-		TRUE,
-		CREATE_SUSPENDED,
-		NULL,
-		NULL,
-		&suInfo,
-		&pInf))
-	{
-		std::cout << "Process creation failed. Error :" << GetLastError() << "\n";
-		getchar();
-		return S_FALSE;
-	}
-
-	if (FO2_AllowAttach)
-	{
-		getchar();
-	}
-
-	LPVOID loadLib = (LPVOID)GetProcAddress(GetModuleHandle(L"kernel32.dll"), "LoadLibraryA");
-	LPVOID arg = (LPVOID)VirtualAllocEx(pInf.hProcess, NULL, strlen(injectDllName), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-	if (arg == NULL)
-	{
-		std::cout << "Error: the memory could not be allocated inside the chosen process.\n";
-		getchar();
-		return S_FALSE;
-	}
-
-	if (WriteProcessMemory(pInf.hProcess, arg, injectDllName, strlen(injectDllName), NULL) == 0)
-	{
-		std::cout << "Error: there were no bytes written to the process's address space.\n";
-		getchar();
-		return S_FALSE;
-	}
-
-	HANDLE thread = CreateRemoteThread(pInf.hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)loadLib, arg, NULL, NULL);
-	if (thread == NULL)
-	{
-		std::cout << "Create Remote Thread failed. Error : " << GetLastError() << "\n";
-		getchar();
-		return S_FALSE;
-	}
-
-	if (ResumeThread(pInf.hThread) == -1)
-	{
-		std::cout << "Resume failed. Error : " << GetLastError() << "\n";
-		getchar();
+	BOOL result = DetourCreateProcessWithDlls(L"FlatOut2.exe", cmdLine, NULL, NULL, TRUE, NULL, NULL, NULL, &suInfo, &pInf, 1, &hookDllPath, NULL);
+	if (!result) {
 		return S_FALSE;
 	}
 

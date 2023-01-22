@@ -6,7 +6,9 @@
 #include "DIDetours.h"
 #include "GameDetours.h"
 
-void earlyDetour()
+static int (WINAPI* TrueEntryPoint)(VOID) = NULL;
+
+int WINAPI entryPointWithDetours(VOID)
 {
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
@@ -14,12 +16,14 @@ void earlyDetour()
 	WinSockDetour();
 	DXDetour();
 	DIDetour();
-	DeferredHookDetour();
+	GameDetours();
 	if (DetourTransactionCommit() != NO_ERROR)
 	{
 		Logging::getInstance().error("DETOURS", std::string("Detour Error!"));
 		throw std::exception("Detour Error!");
 	}
+
+	return TrueEntryPoint();
 }
 
 void GenerateExceptionData(WCHAR* buffer, size_t size, PEXCEPTION_RECORD exception)
@@ -69,11 +73,8 @@ LONG WINAPI TerminateHandler(LPEXCEPTION_POINTERS exception)
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 
-BOOL APIENTRY DllMain(HMODULE hModule,
-	DWORD  ul_reason_for_call,
-	LPVOID lpReserved)
+BOOL APIENTRY DllMain(HINSTANCE hinst, DWORD dwReason, LPVOID reserved)
 {
-	dllHandle = hModule;
 	WCHAR modBuf[512];
 	SetUnhandledExceptionFilter(TerminateHandler);
 	if (GetModuleBaseName(GetCurrentProcess(), NULL, modBuf, sizeof(modBuf)) != NULL)
@@ -87,13 +88,12 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 	{
 		throw new std::exception();
 	}
-	switch (ul_reason_for_call)
-	{
-	case DLL_PROCESS_ATTACH:
+	if (dwReason == DLL_PROCESS_ATTACH) {
+		DetourRestoreAfterWith();
 		if (InstanceSettings::GetSettings() == NULL)
 		{
 			int nArgs = -1, instanceID = -1, i = 0;
-			LPWSTR *szArglist;
+			LPWSTR* szArglist;
 			szArglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);
 			while (i < nArgs)
 			{
@@ -117,15 +117,18 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 			}
 			LocalFree(szArglist);
 			InstanceSettings::InitSettings(instanceID);
-			earlyDetour();
 		}
-		break;
-	case DLL_THREAD_ATTACH:
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH:
-		break;
+
+		// NB: DllMain can't call LoadLibrary, so we hook the app entry point.
+		TrueEntryPoint = (int (WINAPI*)(VOID))DetourGetEntryPoint(NULL);
+		DetourTransactionBegin();
+		DetourUpdateThread(GetCurrentThread());
+		DetourAttach(&(PVOID&)TrueEntryPoint, entryPointWithDetours);
+		if (DetourTransactionCommit() != NO_ERROR)
+		{
+			throw std::exception("Detour Error!");
+		}
+		return TRUE;
 	}
-	return TRUE;
 }
 
