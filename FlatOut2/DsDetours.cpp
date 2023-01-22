@@ -13,7 +13,9 @@ HRESULT MyDsCreate8(LPCGUID lpcGuidDevice, LPDIRECTSOUND8* ppDS8, LPUNKNOWN pUnk
 
 void DsDetour()
 {
-	HMODULE dsDLL = LoadLibrary(L"dsound.dll");
-	oDsCreate8 = GetProcAddress(dsDLL, "DirectSoundCreate8");
-	DetourAttach(&oDsCreate8, MyDsCreate8);
+	if (InstanceSettings::GetSettings()->UseBackgroundAudio()) {
+		HMODULE dsDLL = LoadLibrary(L"dsound.dll");
+		oDsCreate8 = GetProcAddress(dsDLL, "DirectSoundCreate8");
+		DetourAttach(&oDsCreate8, MyDsCreate8);
+	}
 }

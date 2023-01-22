@@ -68,6 +68,7 @@ public:
 	void SetDirectInputHook(CDirectInput8Hook* dinput);
 	BOOL UseInputEmulation();
 	BOOL SkipIntros();
+	BOOL UseBackgroundAudio();
 private:
 	InstanceSettings();
 private:

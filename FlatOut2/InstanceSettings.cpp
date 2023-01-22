@@ -162,6 +162,11 @@ BOOL InstanceSettings::SkipIntros()
 	return m_settings->globals.skipIntros;
 }
 
+BOOL InstanceSettings::UseBackgroundAudio()
+{
+	return m_settings->globals.useBackgroundAudio;
+}
+
 InstanceSettings::InstanceSettings()
 {
 }
