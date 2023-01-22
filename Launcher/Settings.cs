@@ -312,6 +312,9 @@
                 }
             }
 
+            // Regex for matching and setting music volume to zero
+            var musicSettingMatcher = @"(?<setting>Settings\.Audio\.\w+MusicVolume = )\d+(?<defaults>.*)";
+
             // Workaround for game crashing on map load or entering options menu
             string[] options = File.ReadAllLines("Savegame/options.cfg");
             for (int i = 0; i < options.Length; i++)
@@ -324,7 +327,14 @@
                 {
                     options[i] = "Settings.Control.ControllerGuid = \"00000000000000000000000000000000\"";
                 }
+
+                // Disable music in settings when using backgorund audio. Otherwise the music from every window would overlap
+                if (useBackgroundAudio) {
+                    var match = Regex.Match(options[i],musicSettingMatcher);
+                    options[i] = Regex.Replace(options[i], musicSettingMatcher, "${setting}0${defaults}");
+                }
             }
+            File.WriteAllLines("Savegame/options.cfg", options);
         }
 
         /// <summary>
